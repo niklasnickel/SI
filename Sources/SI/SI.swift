@@ -64,6 +64,21 @@ struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		}
 		
 		/**
+		 Creates a new `Unit` from an existing `Unit`
+		 
+		 - Parameter name: Trivial name of the unit
+		 - Parameter multiplier: Factor for conversion to standart SI-numbers
+		 - Parameter dimension: Dimesion of the unit
+		 - Precondition: `multiplier != 0`
+		 - Returns: The specified `Unit`.
+		 */
+		init(_ name: String?, _ unit: Unit) {
+			self.name = name
+			self.multiplier = unit.multiplier
+			self.dimension = unit.dimension
+		}
+		
+		/**
 		 Creates a new `Unit` with `name = nil`
 		 
 		 - Parameter multiplier: Factor for conversion to standart SI-numbers

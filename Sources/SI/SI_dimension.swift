@@ -14,12 +14,11 @@ extension SI.Unit.Dimension{
 	static let scalar = Self(m: 0, kg: 0, s: 0)
 	/// Length
 	static let length = Self(m: 1, kg: 0, s: 0)
-	/// Area
-	static let area = Self(m: 2, kg: 0, s: 0)
+	/// Length
+	static let weight = Self(m: 0, kg: 1, s: 0)
 	/// Time
 	static let time = Self(m: 0, kg: 0, s: 1)
-	/// Force
-	static let force = Self(m: 1, kg: 1, s: -2)
+
 }
 
 

@@ -12,28 +12,40 @@ import Foundation
 extension SI.Unit{
 	// Scalar
 	static let scalar = Self("", 1, .scalar)
-	static let percentage = Self("%", 0.01, .scalar)
+	static let percentage = Self("%", 0.01 * scalar)
+	
 	// Length
 	static let m = Self("m", 1, .length)
-	static let mm = Self("mm", 1e-3, .length)
+	static let mm = Self("mm", 1e-3 * m)
+	
+	// Weight
+	static let kg = Self("kg", 1, .weight)
+	
 	// Time
 	static let s = Self("s", 1, .time)
-	static let min = Self("min", 60, .time)
-	static let h = Self("h", 3600, .time)
+	static let min = Self("min", 60 * s)
+	static let h = Self("h", 60 * min)
+	
 	// Frequency
-	static let Hz = Self("Hz", 1, .scalar - .time)
+	static let Hz = Self("Hz", scalar / s)
+	
 	// Velocity
-	static let m_s = Self("m/s", 1, .length - .time)
+	static let m_s = Self("m/s", m / s)
+	
 	// Area
-	static let m2 = Self("m^2", 1, .area)
-	// Presure
-	static let MPa = Self("MPa", 1e6, .force - .area)
+	static let m2 = Self("m^2", m ^ 2)
+	
 	// Force
-	static let N = Self("N", 1, .force)
-	static let kN = Self("kN", 1e3, .force)
+	static let N = Self("N", kg * m / (s ^ 2))
+	static let kN = Self("kN", 1e3 * N)
+	
+	// Presure
+	static let Pa = Self("Pa", N / m2)
+	static let MPa = Self("MPa", 1e6 * Pa)
+	
 	// Spring Constant
-	static let N_m = Self("N/m", 1, .force - .length)
-	static let N_mm = Self("N/mm", 1e3, .force - .length)
+	static let N_m = Self("N/m", N / m)
+	static let N_mm = Self("N/mm", N / mm)
 }
 
 
@@ -77,7 +89,7 @@ extension SI.Unit{
 	
 	static func ^ (lhs: Self, rhs: Int) -> Self {
 		var dimension = lhs.dimension
-		for _ in 1...rhs {
+		for _ in 1...rhs-1 {
 			dimension = dimension + dimension
 		}
 		return SI.Unit(multiplier: lhs.multiplier, dimension: dimension)
