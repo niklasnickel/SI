@@ -28,4 +28,16 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(1.0 / seconds, 0.1[.Hz])
 		XCTAssertEqual(seconds / 2.0, 5[.s])
 	}
+	
+	func testInitialization() throws {
+		// Various initialization methods
+		XCTAssertEqual(0.15[.m_s], SI(0.15, .m_s))
+		XCTAssertEqual(0[.N], SI(0, .N))
+		XCTAssertEqual(1[.scalar], SI(1))
+		XCTAssertEqual(1[], SI(1))
+		
+		assertPreconditionFailure(expectedMessage: "Cannot evaluate equality: Units don't match.") {
+			let _ = 0[.m] == 0[.s]
+		}
+	}
 }
