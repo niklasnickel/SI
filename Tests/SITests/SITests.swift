@@ -111,19 +111,19 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(l1 ^ -2, 1 / (l1 ^ 2))
 		
 		// Square Root
-		XCTAssertEqual(SI.sqrt(l1 * l1), l1)
-		XCTAssertEqual(SI.sqrt(-l1 * -l1), l1)
-		XCTAssertEqual(SI.sqrt(l1 ^ 2), l1)
-		XCTAssertEqual(SI.sqrt(-l1 ^ 2), l1)
-		XCTAssertEqual(SI.sqrt(a1), l1)
-		XCTAssertEqual(SI.sqrt(1 / a1), 1 / l1)
-		XCTAssertEqual(SI.sqrt(1[]), 1[])
+		XCTAssertEqual(sqrt(l1 * l1), l1)
+		XCTAssertEqual(sqrt(-l1 * -l1), l1)
+		XCTAssertEqual(sqrt(l1 ^ 2), l1)
+		XCTAssertEqual(sqrt(-l1 ^ 2), l1)
+		XCTAssertEqual(sqrt(a1), l1)
+		XCTAssertEqual(sqrt(1 / a1), 1 / l1)
+		XCTAssertEqual(sqrt(1[]), 1[])
 		
 		assertPreconditionFailure(expectedMessage: "Cannot compute sqrt: Unit is no square.") {
-			let _ = SI.sqrt(l1)
+			let _ = sqrt(l1)
 		}
 		assertPreconditionFailure(expectedMessage: "Cannot compute sqrt: Value is negative.") {
-			let _ = SI.sqrt(-a1)
+			let _ = sqrt(-a1)
 		}
 		//        try XCTAssertThrowsError(SI.sqrt(meters))
 	}
