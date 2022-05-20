@@ -36,12 +36,11 @@ extension SI.Unit{
 	static let N_mm = Self("N/mm", 1e3, .force - .length)
 }
 
+
 // MARK: String representation
 extension SI.Unit{
 	var debugDescription: String{
-		if name != nil{
-			return name!
-		}
+		if let name = name { return name }
 		else{
 			var dimensionString = " "
 			if multiplier != 1{
