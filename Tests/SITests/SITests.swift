@@ -13,15 +13,8 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(meters / seconds + meters / seconds, 0.3[.m_s])
 		XCTAssertEqual(meters + millimeters, 1.9[.m])
 		XCTAssertEqual(squaremeters + meters * meters, 27.25[.m2])
-		XCTAssertEqual(meters + millimeters, 1900[.mm])
 		XCTAssertEqual(meters ^ 2, 2.25[.m2])
 		XCTAssertEqual(meters * meters, 2.25[.m2])
-		XCTAssertEqual(meters * millimeters, 0.6[.m2])
-		XCTAssertEqual(SI.sqrt(meters * meters), meters)
-		XCTAssertEqual(SI.sqrt(squaremeters), 5[.m])
-		XCTAssertEqual(SI.sqrt(-meters ^ 2), meters)
-		XCTAssertNil(SI.sqrt(-(meters ^ 2)))
-		//        try XCTAssertThrowsError(SI.sqrt(meters))
 		//        try XCTAssertThrowsError(meters.convert(to: Unit("")))
 		XCTAssertEqual(5.0 * millimeters, 2[.m])
 		XCTAssertEqual(meters * 2.0, 3[.m])
@@ -38,6 +31,13 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(1[.scalar], SI(1))
 		XCTAssertEqual(1[], SI(1))
 		XCTAssertEqual(1[], SI(1.0))
+		
+		// Text approximate equality
+		XCTAssertTrue(1900[.mm].isApprox(1.9[.m]))
+		XCTAssertTrue(1.000_000_000_1[.mm].isApprox(1[.mm]))
+		XCTAssertFalse(1.000_000_001[.mm].isApprox(1[.mm]))
+		XCTAssertTrue(1.000_000_000_01[.mm].isApprox(1[.mm], precision: 1e-10))
+		XCTAssertFalse(1.000_000_000_1[.mm].isApprox(1[.mm], precision: 1e-10))
 		
 		// Equation fails due to wrong dimension
 		assertPreconditionFailure(expectedMessage: "Cannot evaluate equality: Units don't match.") {
@@ -96,5 +96,35 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(2 * l2, l1)
 		XCTAssertEqual(l2 * 2, l1)
 		XCTAssertEqual(-2 * l2, -l1)
+	}
+	
+	func testExponentiationAndSqrt() throws {
+		let l1 = 2[.m]
+		let a1 = 4[.m2]
+		
+		// Potentiation
+		XCTAssertEqual(l1 ^ 1, l1)
+		XCTAssertEqual(l1 ^ 2, l1 * l1)
+		XCTAssertEqual(l1 ^ 3, l1 * l1 * l1)
+		XCTAssertEqual(l1 ^ 0, 1[])
+		XCTAssertEqual(l1 ^ -1, 1 / l1)
+		XCTAssertEqual(l1 ^ -2, 1 / (l1 ^ 2))
+		
+		// Square Root
+		XCTAssertEqual(SI.sqrt(l1 * l1), l1)
+		XCTAssertEqual(SI.sqrt(-l1 * -l1), l1)
+		XCTAssertEqual(SI.sqrt(l1 ^ 2), l1)
+		XCTAssertEqual(SI.sqrt(-l1 ^ 2), l1)
+		XCTAssertEqual(SI.sqrt(a1), l1)
+		XCTAssertEqual(SI.sqrt(1 / a1), 1 / l1)
+		XCTAssertEqual(SI.sqrt(1[]), 1[])
+		
+		assertPreconditionFailure(expectedMessage: "Cannot compute sqrt: Unit is no square.") {
+			let _ = SI.sqrt(l1)
+		}
+		assertPreconditionFailure(expectedMessage: "Cannot compute sqrt: Value is negative.") {
+			let _ = SI.sqrt(-a1)
+		}
+		//        try XCTAssertThrowsError(SI.sqrt(meters))
 	}
 }
