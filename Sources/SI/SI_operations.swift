@@ -9,26 +9,54 @@ import Foundation
 
 extension SI {
 	
-	// MARK: Comparison
+	// MARK: Equality
 	/**
 	 Determines wether `lhs` is approximately equal to `rhs` with a precision of `precision`
 	 
 	 - Parameter lhs: Left hand argument
 	 - Parameter rhs: Rhight hand argument
-	 - Returns: `True` if  `lhs` is approximately equal to `rhs` with a precision of `precision`. Otherwise `False`
+	 - Returns: `True` if  `lhs` is  equal to `rhs`. Otherwise `False`
 	 */
 	static func == (lhs: Self, rhs: Self) -> Bool{
-		let precision = 1e-9
-		var valueEquals: Bool
-		if rhs.unit == lhs.unit{
-			valueEquals = fabs(lhs.value.distance(to: rhs.value)) <= precision
+		precondition(lhs.unit.dimension == rhs.unit.dimension, "Cannot evaluate equality: Units don't match.")
+		if rhs.unit == lhs.unit{ // No unit conversion necessary
+			return lhs.value == rhs.value
 		}
-		else{
-			valueEquals = fabs(lhs.convertToSI().value.distance(to: rhs.convertToSI().value)) <= precision
+		else{ // Unit conversion necessary
+			return lhs.convertToSI().value == rhs.convertToSI().value
 		}
-		let dimensionEquals = lhs.unit.dimension == rhs.unit.dimension
-		return valueEquals && dimensionEquals
 	}
+	
+	/**
+	 Determines wether `lhs` is approximately equal to `rhs` with a precision of `precision`
+	 
+	 - Parameter comparator: Value to compare to
+	 - Parameter precision: Precision
+	 - Returns: `True` if  `lhs` is approximately equal to `rhs` with a precision of `precision`. Otherwise `False`
+	 */
+	func isApprox (_ comparator: Self, precision: Double?) -> Bool{
+		precondition(comparator.unit.dimension == self.unit.dimension,  "Cannot evaluate approximate equality: Units don't match.")
+		let precision = precision ?? 1e-9
+		if self.unit == comparator.unit{ // No unit conversion necessary
+			return fabs(self.value.distance(to: comparator.value)) <= precision
+		}
+		else{ // Unit conversion necessary
+			return fabs(self.convertToSI().value.distance(to: comparator.convertToSI().value)) <= precision
+		}
+	}
+	
+	/**
+	 Determines wether `lhs` is approximately equal to `rhs` with a precision of 1e-9
+	 
+	 - Parameter comparator: Value to compare to
+	 - Returns: `True` if  `lhs` is approximately equal to `rhs` with a precision of 1e-9. Otherwise `False`
+	 */
+	func isApprox (_ comparator: Self) -> Bool{
+		isApprox(comparator, precision: nil)
+	}
+	
+	
+	//  MARK: Inequality
 	
 	/**
 	 Determines wether `lhs` is  less than `rhs`
