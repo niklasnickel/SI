@@ -59,3 +59,33 @@ extension SI.Unit{
 		}
 	}
 }
+
+
+//MARK: Operations
+extension SI.Unit{
+	
+	static func * (lhs: Self, rhs: Self) -> Self {
+		let multiplier = lhs.multiplier * rhs.multiplier
+		let dimension = lhs.dimension + rhs.dimension
+		return SI.Unit(multiplier: multiplier, dimension: dimension)
+	}
+	
+	static func * (lhs: Double, rhs: Self) -> Self {
+		let multiplier = lhs * rhs.multiplier
+		return SI.Unit(multiplier: multiplier, dimension: rhs.dimension)
+	}
+	
+	static func ^ (lhs: Self, rhs: Int) -> Self {
+		var dimension = lhs.dimension
+		for _ in 1...rhs {
+			dimension = dimension + dimension
+		}
+		return SI.Unit(multiplier: lhs.multiplier, dimension: dimension)
+	}
+	
+	static func / (lhs: Self, rhs: Self) -> Self {
+		let multiplier = lhs.multiplier / rhs.multiplier
+		let dimension = lhs.dimension - rhs.dimension
+		return SI.Unit(multiplier: multiplier, dimension: dimension)
+	}
+}
