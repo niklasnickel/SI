@@ -31,28 +31,17 @@ extension SI {
 	 Determines wether `lhs` is approximately equal to `rhs` with a precision of `precision`
 	 
 	 - Parameter comparator: Value to compare to
-	 - Parameter precision: Precision
+	 - Parameter precision: Precision (Default: 1e-9)
 	 - Returns: `True` if  `lhs` is approximately equal to `rhs` with a precision of `precision`. Otherwise `False`
 	 */
-	func isApprox (_ comparator: Self, precision: Double?) -> Bool{
+	func isApprox (_ comparator: Self, precision: Double = 1e-9) -> Bool{
 		precondition(comparator.unit.dimension == self.unit.dimension,  "Cannot evaluate approximate equality: Units don't match.")
-		let precision = precision ?? 1e-9
 		if self.unit == comparator.unit{ // No unit conversion necessary
 			return fabs(self.value.distance(to: comparator.value)) <= precision
 		}
 		else{ // Unit conversion necessary
 			return fabs(self.convertToSI().value.distance(to: comparator.convertToSI().value)) <= precision
 		}
-	}
-	
-	/**
-	 Determines wether `lhs` is approximately equal to `rhs` with a precision of 1e-9
-	 
-	 - Parameter comparator: Value to compare to
-	 - Returns: `True` if  `lhs` is approximately equal to `rhs` with a precision of 1e-9. Otherwise `False`
-	 */
-	func isApprox (_ comparator: Self) -> Bool{
-		isApprox(comparator, precision: nil)
 	}
 	
 	
@@ -242,21 +231,16 @@ extension SI {
 	 
 	 - Parameter variable: Left hand argument
 	 - Precondition:`value` has a dimension that supports a square root.
-	 - Returns: Scientifically correct root of `value` or `nil` if `value` is negative.
+	 - Returns: Scientifically correct root of `value`
 	 */
-	static func sqrt(_ value: Self) -> Self? {
+	static func sqrt(_ value: Self) -> Self {
 		let dim = value.unit.dimension
-		let valueValid = value.value >= 0
-		let dimValid = dim.m % 2 == 0 && dim.kg % 2 == 0 && dim.s % 2 == 0
-		precondition(dimValid)
-		if valueValid{
-			let newValue = value.value.squareRoot()
-			let newDimension = Unit.Dimension(m: dim.m / 2, kg: dim.kg / 2, s: dim.s / 2)
-			return SI(newValue, Unit(multiplier: value.unit.multiplier, dimension: newDimension))
-		}
-		else{
-			return nil
-		}
+		precondition(value.value >= 0, "Cannot compute sqrt: Value is negative.")
+		precondition(dim.m % 2 == 0 && dim.kg % 2 == 0 && dim.s % 2 == 0, "Cannot compute sqrt: Unit is no square.")
+		
+		let newValue = value.value.squareRoot()
+		let newDimension = Unit.Dimension(m: dim.m / 2, kg: dim.kg / 2, s: dim.s / 2)
+		return SI(newValue, Unit(multiplier: value.unit.multiplier, dimension: newDimension))
 	}
 	
 	/**
