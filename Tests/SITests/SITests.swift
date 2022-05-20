@@ -29,13 +29,17 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(seconds / 2.0, 5[.s])
 	}
 	
-	func testInitialization() throws {
+	func testEquality() throws {
 		// Various initialization methods
 		XCTAssertEqual(0.15[.m_s], SI(0.15, .m_s))
 		XCTAssertEqual(0[.N], SI(0, .N))
+		XCTAssertEqual(-0[.N], SI(0, .N))
+		XCTAssertEqual(0[.N], -SI(0, .N))
 		XCTAssertEqual(1[.scalar], SI(1))
 		XCTAssertEqual(1[], SI(1))
+		XCTAssertEqual(1[], SI(1.0))
 		
+		// Equation fails due to wrong dimension
 		assertPreconditionFailure(expectedMessage: "Cannot evaluate equality: Units don't match.") {
 			let _ = 0[.m] == 0[.s]
 		}
@@ -45,5 +49,52 @@ final class SITests: XCTestCase {
 		assertPreconditionFailure(expectedMessage: "Cannot evaluate approximate equality: Units don't match.") {
 			let _ = 0[.mm].isApprox(0[.s])
 		}
+	}
+	
+	func testConversion() throws {
+		// Multiplier conversions
+		XCTAssertEqual(1[.m], 1.0[.m])
+		XCTAssertEqual(1.0[.m], 1000[.mm])
+		XCTAssertTrue(1.9[.m].isApprox(1900[.mm]))
+		XCTAssertEqual(0[.m], 0[.mm])
+		XCTAssertEqual(1e80[.m], 1e83[.mm])
+		XCTAssertEqual(1e-80[.m], 1e-77[.mm])
+	}
+	
+	func testAddition() throws {
+		let l1 = 1[.m]
+		let l2 = 500[.mm]
+		
+		XCTAssertEqual(l1 + l1, 2[.m])
+		XCTAssertEqual(l1 - l1, 0[.m])
+		XCTAssertEqual(l1 + l2, 1.5[.m])
+		XCTAssertEqual(l2 - l1, -0.5[.m])
+		XCTAssertEqual(l2 + l2, l1)
+		
+		
+		XCTAssertEqual(1 + 1[], 2[])
+		XCTAssertEqual(1[] + 1, 2[])
+		
+		// Addition fails due to wrong dimension
+		assertPreconditionFailure(expectedMessage: "Cannot add SI values: Units don't match.") {
+			let _ = 0[.m] + 0[.s]
+		}
+		assertPreconditionFailure(expectedMessage: "Cannot add SI values: Units don't match.") {
+			let _ = 0 + 0[.s]
+		}
+		assertPreconditionFailure(expectedMessage: "Cannot add SI values: Units don't match.") {
+			let _ = 0[.m] + 0
+		}
+	}
+	
+	func testScalarMultiplication() throws {
+		let l1 = 1[.m]
+		let l2 = 500[.mm]
+		
+		XCTAssertEqual(2 * l1, 2[.m])
+		XCTAssertEqual(0 * l1, 0[.m])
+		XCTAssertEqual(2 * l2, l1)
+		XCTAssertEqual(l2 * 2, l1)
+		XCTAssertEqual(-2 * l2, -l1)
 	}
 }

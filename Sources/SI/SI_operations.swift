@@ -66,7 +66,7 @@ extension SI {
 	 - Returns: `True` if  `lhs` is scientifically less than `rhs`. Otherwise `False`
 	 */
 	static func < (lhs: SI, rhs: SI) -> Bool {
-		precondition(lhs.unit.dimension == rhs.unit.dimension)
+		precondition(lhs.unit.dimension == rhs.unit.dimension, "Cannot evaluate inequality: Units don't match.")
 		return lhs.convertToSI().value < rhs.convertToSI().value
 	}
 	
@@ -78,7 +78,7 @@ extension SI {
 	 - Returns: `True` if  `lhs` is scientifically greater than `rhs`. Otherwise `False`
 	 */
 	static func > (lhs: SI, rhs: SI) -> Bool {
-		precondition(lhs.unit.dimension == rhs.unit.dimension)
+		precondition(lhs.unit.dimension == rhs.unit.dimension,  "Cannot evaluate inequality: Units don't match.")
 		return lhs.convertToSI().value > rhs.convertToSI().value
 	}
 	
@@ -164,7 +164,7 @@ extension SI {
 	 - Returns: Scientifically correct sum of `lhs` and `rhs`.
 	 */
 	static func + (lhs: Self, rhs: Self) -> Self {
-		precondition(lhs.unit.dimension == rhs.unit.dimension)
+		precondition(lhs.unit.dimension == rhs.unit.dimension,  "Cannot add SI values: Units don't match.")
 		// Convert to common unit
 		let value = lhs.convertToSI().value + rhs.convertToSI().value
 		return SI(value, Unit(multiplier: 1, dimension: lhs.unit.dimension))
