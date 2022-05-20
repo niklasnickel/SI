@@ -31,16 +31,27 @@ extension SI {
 	}
 	
 	/**
-	 Determines wether `lhs` is approximately less than `rhs`
+	 Determines wether `lhs` is  less than `rhs`
 	 
 	 - Parameter lhs: Left hand argument
 	 - Parameter rhs: Rhight hand argument
 	 - Returns: `True` if  `lhs` is scientifically less than `rhs`. Otherwise `False`
 	 */
 	static func < (lhs: SI, rhs: SI) -> Bool {
-		let dimensionEquals = lhs.unit.dimension == rhs.unit.dimension
-		let valueCompare = lhs.convertToSI().value < rhs.convertToSI().value
-		return valueCompare && dimensionEquals
+		precondition(lhs.unit.dimension == rhs.unit.dimension)
+		return lhs.convertToSI().value < rhs.convertToSI().value
+	}
+	
+	/**
+	 Determines wether `lhs` is  greater than `rhs`
+	 
+	 - Parameter lhs: Left hand argument
+	 - Parameter rhs: Rhight hand argument
+	 - Returns: `True` if  `lhs` is scientifically greater than `rhs`. Otherwise `False`
+	 */
+	static func > (lhs: SI, rhs: SI) -> Bool {
+		precondition(lhs.unit.dimension == rhs.unit.dimension)
+		return lhs.convertToSI().value > rhs.convertToSI().value
 	}
 	
 	//MARK: Multiplication
