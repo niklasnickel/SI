@@ -39,5 +39,11 @@ final class SITests: XCTestCase {
 		assertPreconditionFailure(expectedMessage: "Cannot evaluate equality: Units don't match.") {
 			let _ = 0[.m] == 0[.s]
 		}
+		assertPreconditionFailure(expectedMessage: "Cannot evaluate equality: Units don't match.") {
+			let _ = 0[.m] == 0[.m2]
+		}
+		assertPreconditionFailure(expectedMessage: "Cannot evaluate approximate equality: Units don't match.") {
+			let _ = 0[.mm].isApprox(0[.s])
+		}
 	}
 }
