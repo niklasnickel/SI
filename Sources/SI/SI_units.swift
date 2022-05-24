@@ -59,7 +59,7 @@ extension SI.Unit{
 				dimensionString +=  "x \(multiplier) "
 			}
 			return dimension.reduce(into: dimensionString) {
-				$0 += $1.key.name
+				$0 += "\($1.key.name)^\($1.value) "
 			}
 		}
 	}

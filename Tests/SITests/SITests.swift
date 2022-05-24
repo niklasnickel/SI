@@ -98,13 +98,16 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(-2 * l2, -l1)
 	}
 	
-	func testExponentiationAndSqrt() throws {
+	func testExponentiationSqrt() throws {
 		let l1 = 2[.m]
+		let l2 = 2[.mm]
 		let a1 = 4[.m2]
 		
 		// Potentiation
 		XCTAssertEqual(l1 ^ 1, l1)
 		XCTAssertEqual(l1 ^ 2, l1 * l1)
+		XCTAssertEqual(l2 ^ 2, l2 * l2)
+		XCTAssertEqual(l2 ^ 2, 4[.mm * .mm])
 		XCTAssertEqual(l1 ^ 3, l1 * l1 * l1)
 		XCTAssertEqual(l1 ^ 0, 1[])
 		XCTAssertEqual(l1 ^ -1, 1 / l1)
@@ -125,6 +128,19 @@ final class SITests: XCTestCase {
 		assertPreconditionFailure(expectedMessage: "Cannot compute sqrt: Value is negative.") {
 			let _ = sqrt(-a1)
 		}
-		//        try XCTAssertThrowsError(SI.sqrt(meters))
+	}
+	
+	func testMultiplicationDivision() throws {
+		// Multiplication
+		XCTAssertEqual(2[.m] * 2[.m], 4[.m2])
+		XCTAssertEqual(2.5 * 2[.mm], 5[.mm])
+		XCTAssertEqual(2[.mm] * 2.5, 5[.mm])
+		
+		XCTAssertEqual(2[.m] * 2[.mm], 0.004[.m2])
+		
+		// Division
+		XCTAssertEqual(4[.m2] / 2[.m], 2[.m])
+		XCTAssertEqual(4 / 2[.mm], 2[.scalar / .mm])
+		XCTAssertEqual(2[.mm] / 2, 1[.mm])
 	}
 }
