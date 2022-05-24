@@ -97,7 +97,7 @@ extension SI.Unit{
 
 // MARK: Dimension
 extension SI.Unit{
-	func combineDimension(with other: SI.Unit, using method: (Int, Int) -> Int) -> [Base: Int]{
+	internal func combineDimension(with other: SI.Unit, using method: (Int, Int) -> Int) -> [Base: Int]{
 		let output = self.dimension.merging(other.dimension, uniquingKeysWith: method)
 		return output.filter {$0.value != 0}
 	}
