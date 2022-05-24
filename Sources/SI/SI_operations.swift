@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SI_operations.swift
 //  
 //
 //  Created by Niklas Nickel on 19.05.22.
@@ -276,7 +276,7 @@ extension SI {
 	}
 }
 
-// Prescedence of potentiation
+// MARK: Prescedence of potentiation
 precedencegroup ExpoentiationPrescedence {
 	 associativity: left
 	 higherThan: MultiplicationPrecedence

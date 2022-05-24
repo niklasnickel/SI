@@ -71,3 +71,36 @@ extension SI.Unit{
 		return output.filter {$0.value != 0}
 	}
 }
+
+// MARK: Prefixes
+public let Y = addPrefix("Y", conversion: 1e24)
+public let Z = addPrefix("Z", conversion: 1e21)
+public let E = addPrefix("E", conversion: 1e18)
+public let P = addPrefix("P", conversion: 1e15)
+public let T = addPrefix("T", conversion: 1e12)
+public let G = addPrefix("G", conversion: 1e9)
+public let M = addPrefix("M", conversion: 1e6)
+public let k = addPrefix("k", conversion: 1e3)
+public let h = addPrefix("h", conversion: 1e2)
+public let da = addPrefix("da", conversion: 1e1)
+
+public let d = addPrefix("c", conversion: 1e-1)
+public let c = addPrefix("c", conversion: 1e-2)
+public let m = addPrefix("m", conversion: 1e-3)
+public let µ = addPrefix("µ", conversion: 1e-6)
+public let n = addPrefix("c", conversion: 1e-9)
+public let p = addPrefix("p", conversion: 1e-12)
+public let f = addPrefix("f", conversion: 1e-15)
+public let a = addPrefix("a", conversion: 1e-18)
+public let z = addPrefix("c", conversion: 1e-21)
+public let y = addPrefix("y", conversion: 1e-24)
+
+
+internal func addPrefix(_ prefix: String, conversion: Double) -> ((SI.Unit) -> SI.Unit){
+	func out(_ unit: SI.Unit) -> SI.Unit{
+		var name: String? = nil
+		if let name_orig = unit.name {name = prefix + name_orig}
+		return SI.Unit(name, unit.multiplier * conversion, unit.dimension)
+	}
+	return out
+}
