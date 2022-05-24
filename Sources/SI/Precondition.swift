@@ -7,7 +7,7 @@
 
 import Foundation
 
-public func precondition(_ condition: @autoclosure () -> Bool,  _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line) {
+public func precondition(_ condition: @autoclosure () -> Bool, _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line) {
 	preconditionClosure(condition(), message(), file, line)
 }
 

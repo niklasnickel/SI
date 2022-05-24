@@ -12,7 +12,7 @@ import Foundation
 public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 	
 	/// String representation of the number
-	public var debugDescription: String{
+	public var debugDescription: String {
 		"\(value)\(unit.debugDescription)"
 	}
 	
@@ -24,7 +24,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 	public var unit: Unit
 	
 	/// Unit of an `SI` number
-	public struct Unit: CustomDebugStringConvertible, Equatable, Hashable{
+	public struct Unit: CustomDebugStringConvertible, Equatable, Hashable {
 		
 		/// Trivial name of the unit
 		public var name: String?
@@ -37,7 +37,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		public var dimension: [Base: Int]
 		
 		/// Basic Physical Dimension of `SI.Unit`
-		public struct Base: Equatable, Hashable{
+		public struct Base: Equatable, Hashable {
 			public var name: String
 		}
 		
@@ -93,7 +93,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 - Parameter rhs: Right hand argument
 		 - Returns: `True` if  `lhs` is equal to `rhs`. Otherwise `False`
 		 */
-		public static func == (lhs: Self, rhs: Self) -> Bool {
+		public static func ==(lhs: Self, rhs: Self) -> Bool {
 			lhs.multiplier == rhs.multiplier && lhs.dimension == rhs.dimension
 		}
 	}

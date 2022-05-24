@@ -10,8 +10,8 @@ import Foundation
 /**
  SI initialization as a `Double` extension
  */
-extension Double{
-	/**
+extension Double {
+/**
 	 Creates an `SI` from a `Double` using subscripts
 	 
 	 Usage:
@@ -21,10 +21,10 @@ extension Double{
 	 let result = force / area // = 1.503[.MPa]
 	 ```
 	 */
-	public subscript(unit: SI.Unit) -> SI{
+	public subscript(unit: SI.Unit) -> SI {
 		SI(self, unit)
 	}
-	/**
+/**
 	 Creates an `SI` scalar from a `Double` using an empty subscripts
 	 
 	 Usage:
@@ -32,7 +32,7 @@ extension Double{
 	 let poissonNumber = 0.3[] // = SI(0.3, Unit.scalar)
 	 ```
 	 */
-	public subscript() -> SI{
+	public subscript() -> SI {
 		SI(self)
 	}
 }
@@ -48,9 +48,9 @@ extension Double{
 public func sqrt(_ value: SI) -> SI {
 	let dim = value.unit.dimension
 	precondition(value.value >= 0, "Cannot compute sqrt: Value is negative.")
-	precondition(0 == dim.reduce(0){$0 + $1.value % 2}, "Cannot compute sqrt: Unit is no square.")
+	precondition(0 == dim.reduce(0) { $0 + $1.value % 2 }, "Cannot compute sqrt: Unit is no square.")
 	
 	let newValue = value.value.squareRoot()
-	let newDimension = dim.mapValues {$0 / 2}
+	let newDimension = dim.mapValues { $0 / 2 }
 	return SI(newValue, SI.Unit(multiplier: value.unit.multiplier, dimension: newDimension))
 }

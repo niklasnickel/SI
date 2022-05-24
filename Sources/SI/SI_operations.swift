@@ -17,12 +17,11 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: `True` if  `lhs` is  equal to `rhs`. Otherwise `False`
 	 */
-	public static func == (lhs: Self, rhs: Self) -> Bool{
+	public static func ==(lhs: Self, rhs: Self) -> Bool {
 		precondition(lhs.unit.dimension == rhs.unit.dimension, "Cannot evaluate equality: Units don't match.")
-		if rhs.unit == lhs.unit{ // No unit conversion necessary
+		if rhs.unit == lhs.unit { // No unit conversion necessary
 			return lhs.value == rhs.value
-		}
-		else{ // Unit conversion necessary
+		} else { // Unit conversion necessary
 			return lhs.convertToSI().value == rhs.convertToSI().value
 		}
 	}
@@ -34,12 +33,11 @@ extension SI {
 	 - Parameter precision: Precision (Default: 1e-9)
 	 - Returns: `True` if  `lhs` is approximately equal to `rhs` with a precision of `precision`. Otherwise `False`
 	 */
-	public func isApprox (_ comparator: Self, precision: Double = 1e-9) -> Bool{
-		precondition(comparator.unit.dimension == unit.dimension,  "Cannot evaluate approximate equality: Units don't match.")
-		if unit == comparator.unit{ // No unit conversion necessary
+	public func isApprox(_ comparator: Self, precision: Double = 1e-9) -> Bool {
+		precondition(comparator.unit.dimension == unit.dimension, "Cannot evaluate approximate equality: Units don't match.")
+		if unit == comparator.unit { // No unit conversion necessary
 			return fabs(value.distance(to: comparator.value)) <= precision
-		}
-		else{ // Unit conversion necessary
+		} else { // Unit conversion necessary
 			return fabs(convertToSI().value.distance(to: comparator.convertToSI().value)) <= precision
 		}
 	}
@@ -54,7 +52,7 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: `True` if  `lhs` is scientifically less than `rhs`. Otherwise `False`
 	 */
-	public static func < (lhs: SI, rhs: SI) -> Bool {
+	public static func <(lhs: SI, rhs: SI) -> Bool {
 		precondition(lhs.unit.dimension == rhs.unit.dimension, "Cannot evaluate inequality: Units don't match.")
 		return lhs.convertToSI().value < rhs.convertToSI().value
 	}
@@ -66,8 +64,8 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: `True` if  `lhs` is scientifically greater than `rhs`. Otherwise `False`
 	 */
-	public static func > (lhs: SI, rhs: SI) -> Bool {
-		precondition(lhs.unit.dimension == rhs.unit.dimension,  "Cannot evaluate inequality: Units don't match.")
+	public static func >(lhs: SI, rhs: SI) -> Bool {
+		precondition(lhs.unit.dimension == rhs.unit.dimension, "Cannot evaluate inequality: Units don't match.")
 		return lhs.convertToSI().value > rhs.convertToSI().value
 	}
 	
@@ -79,11 +77,12 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct product of `lhs` and `rhs`.
 	 */
-	public static func * (lhs: Self, rhs: Self) -> Self{
+	public static func *(lhs: Self, rhs: Self) -> Self {
 		let value = lhs.convertToSI().value * rhs.convertToSI().value
-		let unit = Unit(multiplier:  1, dimension: lhs.unit.addDimension(to: rhs.unit))
+		let unit = Unit(multiplier: 1, dimension: lhs.unit.addDimension(to: rhs.unit))
 		return SI(value, unit)
 	}
+	
 	/**
 	 Multiplies a scalar `Double`with an `SI` value.
 	 
@@ -91,10 +90,11 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct product of `lhs` and `rhs`.
 	 */
-	public static func * (lhs: Double, rhs: Self) -> Self{
+	public static func *(lhs: Double, rhs: Self) -> Self {
 		let value = lhs * rhs.value
 		return SI(value, rhs.unit)
 	}
+	
 	/**
 	 Multiplies an `SI` value with a scalar `Double`.
 	 
@@ -102,7 +102,7 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct product of `lhs` and `rhs`.
 	 */
-	public static func * (lhs: Self, rhs: Double) -> Self{
+	public static func *(lhs: Self, rhs: Double) -> Self {
 		rhs * lhs
 	}
 	
@@ -114,11 +114,12 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct fraction of `lhs` and `rhs`.
 	 */
-	public static func / (lhs: Self, rhs: Self) -> Self{
+	public static func /(lhs: Self, rhs: Self) -> Self {
 		let value = lhs.convertToSI().value / rhs.convertToSI().value
 		let unit = Unit(multiplier: 1, dimension: rhs.unit.subtractDimension(from: lhs.unit))
 		return SI(value, unit)
 	}
+	
 	/**
 	 Divides a scalar `Double` by an `SI` value.
 	 
@@ -126,11 +127,12 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct fraction of `lhs` and `rhs`.
 	 */
-	public static func / (lhs: Double, rhs: Self) -> Self{
+	public static func /(lhs: Double, rhs: Self) -> Self {
 		let value = lhs / rhs.value
 		let unit = Unit(multiplier: 1 / rhs.unit.multiplier, dimension: rhs.unit.subtractDimension(from: Unit.scalar))
 		return SI(value, unit)
 	}
+	
 	/**
 	 Divides an `SI` value by a scalar `Double`.
 	 
@@ -138,7 +140,7 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct fraction of `lhs` and `rhs`.
 	 */
-	public static func / (lhs: Self, rhs: Double) -> Self{
+	public static func /(lhs: Self, rhs: Double) -> Self {
 		let value = lhs.value / rhs
 		return SI(value, lhs.unit)
 	}
@@ -152,12 +154,13 @@ extension SI {
 	 - Precondition: Dimension of `rhs` and dimension of `lhs` are equal
 	 - Returns: Scientifically correct sum of `lhs` and `rhs`.
 	 */
-	public static func + (lhs: Self, rhs: Self) -> Self {
-		precondition(lhs.unit.dimension == rhs.unit.dimension,  "Cannot add SI values: Units don't match.")
+	public static func +(lhs: Self, rhs: Self) -> Self {
+		precondition(lhs.unit.dimension == rhs.unit.dimension, "Cannot add SI values: Units don't match.")
 		// Convert to common unit
 		let value = lhs.convertToSI().value + rhs.convertToSI().value
 		return SI(value, Unit(multiplier: 1, dimension: lhs.unit.dimension))
 	}
+	
 	/**
 	 Adds a `Double` to an `SI` value.
 	 
@@ -165,9 +168,10 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Sum of `lhs` and `rhs` as an `SI`number.
 	 */
-	public static func + (lhs: Double, rhs: Self) -> SI {
+	public static func +(lhs: Double, rhs: Self) -> SI {
 		SI(lhs) + rhs
 	}
+	
 	/**
 	 Adds an `SI` value to a `Double`.
 	 
@@ -175,7 +179,7 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Sum of `lhs` and `rhs` as an `SI`number.
 	 */
-	public static func + (lhs: Self, rhs: Double) -> SI {
+	public static func +(lhs: Self, rhs: Double) -> SI {
 		lhs + SI(rhs)
 	}
 	
@@ -188,12 +192,13 @@ extension SI {
 	 - Precondition: Dimension of `rhs` and dimension of `lhs` are equal
 	 - Returns: Scientifically correct difference of `lhs` and `rhs`.
 	 */
-	public static func - (lhs: Self, rhs: Self) -> Self {
+	public static func -(lhs: Self, rhs: Self) -> Self {
 		precondition(lhs.unit.dimension == rhs.unit.dimension)
 		// Convert to common unit
 		let value = lhs.convertToSI().value - rhs.convertToSI().value
 		return SI(value, Unit(multiplier: 1, dimension: lhs.unit.dimension))
 	}
+	
 	/**
 	 Subtracts a `Double` from an `SI` value.
 	 
@@ -201,9 +206,10 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Difference of `lhs` and `rhs` as an `SI`number.
 	 */
-	public static func - (lhs: Double, rhs: Self) -> Self {
+	public static func -(lhs: Double, rhs: Self) -> Self {
 		SI(lhs) - rhs
 	}
+	
 	/**
 	 Subtracts an `SI` value from a `Double`.
 	 
@@ -211,7 +217,7 @@ extension SI {
 	 - Parameter rhs: Right hand argument
 	 - Returns: Difference of `lhs` and `rhs` as an `SI`number.
 	 */
-	public static func - (lhs: Self, rhs: Double) -> Self {
+	public static func -(lhs: Self, rhs: Double) -> Self {
 		lhs - SI(rhs)
 	}
 	
@@ -222,7 +228,7 @@ extension SI {
 	 - Parameter lhs: Left hand argument
 	 - Returns: Scientifically correct negation of `lhs`.
 	 */
-	public static prefix func - (lhs: Self) -> Self {
+	public static prefix func -(lhs: Self) -> Self {
 		SI(-lhs.value, Unit(multiplier: 1, dimension: lhs.unit.dimension))
 	}
 	
@@ -233,17 +239,17 @@ extension SI {
 	 - Parameter rhs: Exponent
 	 - Returns: Scientifically correct exponentiation of `lhs` to the power of `rhs`.
 	 */
-	public static func ** (lhs: Self, rhs: Int) -> Self{
+	public static func **(lhs: Self, rhs: Int) -> Self {
 		var returnValue = lhs
-		if rhs == 0{
+		if rhs == 0 {
 			return SI(1)
-		} else if rhs < 0{
-			for _ in 1 ..< -rhs{
+		} else if rhs < 0 {
+			for _ in 1 ..< -rhs {
 				returnValue = returnValue * lhs
 			}
 			returnValue = SI(1) / returnValue
-		} else{
-			for _ in 1 ..< rhs{
+		} else {
+			for _ in 1..<rhs {
 				returnValue = returnValue * lhs
 			}
 		}
@@ -256,7 +262,7 @@ extension SI {
 	 
 	 - Returns: `self` converted to standard SI-units so that `self.unit.multiplier == 1`
 	 */
-	public func convertToSI() -> Self{
+	public func convertToSI() -> Self {
 		let value = value * unit.multiplier
 		let unit = Unit(multiplier: 1, dimension: unit.dimension)
 		return SI(value, unit)
@@ -278,7 +284,7 @@ extension SI {
 
 // MARK: Precedence of Exponentiation
 precedencegroup ExponentiationPrecedence {
-	 associativity: left
-	 higherThan: MultiplicationPrecedence
+	associativity: left
+	higherThan: MultiplicationPrecedence
 }
-infix operator ** : ExponentiationPrecedence
+infix operator **: ExponentiationPrecedence

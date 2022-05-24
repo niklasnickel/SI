@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: Base Units
-extension SI.Unit.Base{
+extension SI.Unit.Base {
 	/// Length with standard unit Meter (m)
 	public static let length = Self(name: "m")
 	
@@ -33,7 +33,7 @@ extension SI.Unit.Base{
 
 
 //MARK: Base Units → Scalar
-extension SI.Unit{
+extension SI.Unit {
 	/// Dimensionless number
 	public static let scalar = Self("", 1, [:])
 	
@@ -46,7 +46,7 @@ extension SI.Unit{
 
 
 //MARK: Base Units → Length
-extension SI.Unit{
+extension SI.Unit {
 	/// Meter (Standard unit for ``Base.length``
 	public static let m = Self("m", 1, [Base.length: 1])
 	
@@ -56,14 +56,14 @@ extension SI.Unit{
 
 
 //MARK: Base Units → Weight
-extension SI.Unit{
+extension SI.Unit {
 	/// Kilogram (Standard unit for ``Base.weight``
 	public static let kg = Self("kg", 1, [Base.weight: 1])
 }
 
 
 //MARK: Base Units → Time
-extension SI.Unit{
+extension SI.Unit {
 	/// Second (Standard unit for ``Base.time``
 	public static let s = Self("s", 1, [Base.time: 1])
 	
@@ -88,7 +88,7 @@ extension SI.Unit{
 
 
 //MARK: Combined Units
-extension SI.Unit{
+extension SI.Unit {
 	// Frequency
 	public static let Hz = Self("Hz", scalar / s)
 	
