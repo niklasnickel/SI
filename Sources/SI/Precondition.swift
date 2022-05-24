@@ -10,7 +10,6 @@ import XCTest
 func precondition(_ condition: @autoclosure () -> Bool,  _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line) {
 	preconditionClosure(condition(), message(), file, line)
 }
-#endif
 
 /// The actual function called by our custom `precondition`.
 var preconditionClosure = Swift.precondition
@@ -34,5 +33,8 @@ extension XCTestCase {
 		preconditionClosure = Swift.precondition // Reset precondition.
 	}
 }
+
+#endif
+
 
 
