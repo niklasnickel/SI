@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Presets.swift
 //  
 //
 //  Created by Niklas Nickel on 20.05.22.
@@ -31,24 +31,64 @@ extension SI.Unit.Base{
 	public static let luminosity = Self(name: "cd")
 }
 
-//MARK: Units
+
+//MARK: Base Units → Scalar
 extension SI.Unit{
-	// Scalar
+	/// Dimensionless number
 	public static let scalar = Self("", 1, [:])
+	
+	/// Percent 1% = 0.01 ``scalar``
 	public static let percentage = Self("%", 0.01 * scalar)
 	
-	// Length
+	/// Permille 1‰ = 0.001 ``scalar``
+	public static let permille = Self("‰", 0.001 * scalar)
+}
+
+
+//MARK: Base Units → Length
+extension SI.Unit{
+	/// Meter (Standard unit for ``Base.length``
 	public static let m = Self("m", 1, [Base.length: 1])
+	
+	/// Milimeter 1mm = 0.001 ``m``
 	public static let mm = Self("mm", 1e-3 * m)
-	
-	// Weight
+}
+
+
+//MARK: Base Units → Weight
+extension SI.Unit{
+	/// Kilogram (Standard unit for ``Base.weight``
 	public static let kg = Self("kg", 1, [Base.weight: 1])
-	
-	// Time
+}
+
+
+//MARK: Base Units → Time
+extension SI.Unit{
+	/// Second (Standard unit for ``Base.time``
 	public static let s = Self("s", 1, [Base.time: 1])
+	
+	/// Minute 1 min = 60 ``s``
 	public static let min = Self("min", 60 * s)
+	
+	/// Hour 1 h = 60 ``min``
 	public static let h = Self("h", 60 * min)
 	
+	/// Day 1 d = 24 ``h``
+	public static let d = Self("d", 24 * h)
+	
+	/// Week 1 week = 7 ``d``
+	public static let week = Self("week", 7 * d)
+	
+	/// Month 1 month = 30.5 ``d``
+	public static let month = Self("month", 30.5 * d)
+	
+	/// Year 1 a = 356 ``d``
+	public static let a = Self("a", 356 * d)
+}
+
+
+//MARK: Combined Units
+extension SI.Unit{
 	// Frequency
 	public static let Hz = Self("Hz", scalar / s)
 	
