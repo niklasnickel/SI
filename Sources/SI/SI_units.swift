@@ -71,7 +71,7 @@ extension SI.Unit{
 	
 	public static func * (lhs: Self, rhs: Self) -> Self {
 		let multiplier = lhs.multiplier * rhs.multiplier
-		let dimension = lhs.combineDimension(with: rhs, using: +)
+		let dimension = lhs.addDimension(to: rhs)
 		return SI.Unit(multiplier: multiplier, dimension: dimension)
 	}
 	
@@ -80,7 +80,7 @@ extension SI.Unit{
 		return SI.Unit(multiplier: multiplier, dimension: rhs.dimension)
 	}
 	
-	public static func ^ (lhs: Self, rhs: Int) -> Self {
+	public static func ** (lhs: Self, rhs: Int) -> Self {
 		var dimension = lhs.dimension
 		for _ in 1...rhs-1 {
 			dimension = dimension.merging(dimension, uniquingKeysWith: +)
@@ -90,15 +90,26 @@ extension SI.Unit{
 	
 	public static func / (lhs: Self, rhs: Self) -> Self {
 		let multiplier = lhs.multiplier / rhs.multiplier
-		let dimension = lhs.combineDimension(with: rhs, using: -)
+		let dimension = rhs.subtractDimension(from: lhs)
 		return SI.Unit(multiplier: multiplier, dimension: dimension)
 	}
 }
 
 // MARK: Dimension
 extension SI.Unit{
-	internal func combineDimension(with other: SI.Unit, using method: (Int, Int) -> Int) -> [Base: Int]{
-		let output = self.dimension.merging(other.dimension, uniquingKeysWith: method)
+	/// Adds a Dimention to another dimension
+	///
+	/// Example: `Unit.m.addDimension(to: Unit.m) = ["m" : 2]`
+	internal func addDimension(to other: SI.Unit) -> [Base : Int] {
+		let output = self.dimension.merging(other.dimension, uniquingKeysWith: +)
+		return output.filter {$0.value != 0}
+	}
+	
+	/// Subtracts a Dimention from another dimension
+	///
+	/// Example: `Unit.m.subtractDimension(to: Unit.s) = ["m" : 1, "s" : -1]`
+	internal func subtractDimension(from other: SI.Unit) -> [Base: Int]{
+		let output = self.dimension.mapValues(-).merging(other.dimension, uniquingKeysWith: +)
 		return output.filter {$0.value != 0}
 	}
 }
