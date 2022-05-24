@@ -10,7 +10,12 @@ import Foundation
 
 // MARK: Operations
 extension SI.Unit.Base{
-	public static let length = Self(name: "L")
-	public static let weight = Self(name: "W")
-	public static let time = Self(name: "T")
+	/// Length with standard unit Meter (m)
+	public static let length = Self(name: "m")
+	
+	/// Weight with standard unit Kilogram (kg)
+	public static let weight = Self(name: "kg")
+	
+	/// Seconds with standard unit Seconds (s)
+	public static let time = Self(name: "s")
 }

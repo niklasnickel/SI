@@ -13,7 +13,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 	
 	/// String representation of the number
 	public var debugDescription: String{
-		"\(value) \(unit.debugDescription)"
+		"\(value)\(unit.debugDescription)"
 	}
 	
 	/// Numerical value of the number

@@ -52,14 +52,14 @@ extension SI.Unit{
 // MARK: String representation
 extension SI.Unit{
 	public var debugDescription: String{
-		if let name = name { return name }
+		if let name = name { return " " + name }
 		else{
-			var dimensionString = " "
+			var dimensionString = ""
 			if multiplier != 1{
-				dimensionString +=  "x \(multiplier) "
+				dimensionString +=  " x \(multiplier)"
 			}
 			return dimension.reduce(into: dimensionString) {
-				$0 += "\($1.key.name)^\($1.value) "
+				$0 += " \($1.key.name)^\($1.value)"
 			}
 		}
 	}

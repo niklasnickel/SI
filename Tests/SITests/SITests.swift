@@ -143,4 +143,14 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(4 / 2[.mm], 2[.scalar / .mm])
 		XCTAssertEqual(2[.mm] / 2, 1[.mm])
 	}
+	
+	func testDebugDescription() throws {
+		XCTAssertEqual(2[.m].debugDescription, "2.0 m")
+		XCTAssertEqual(2.4[.Pa].debugDescription, "2.4 Pa")
+		XCTAssertEqual(2e19[.Pa].debugDescription, "2e+19 Pa")
+		XCTAssertEqual(2[0.001 * .m].debugDescription, "2.0 x 0.001 m^1")
+		XCTAssertEqual(2[.m / .s ** 2].debugDescription, "2.0 s^-2 m^1")
+		// TODO: Fix potentiation prescedence
+		XCTAssertEqual(2[.m_s].debugDescription, "2.0 m/s")
+	}
 }
