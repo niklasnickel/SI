@@ -17,31 +17,32 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 	}
 	
 	/// Numerical value of the number
-	var value: Double
+	public var value: Double
 	
 	// MARK: Unit
 	/// Unit of the number
-	var unit: Unit
+	public var unit: Unit
 	
 	/// Unit of an `SI` number
-	struct Unit: CustomDebugStringConvertible, Equatable, Hashable{
+	public struct Unit: CustomDebugStringConvertible, Equatable, Hashable{
 		
 		/// Trivial name of the unit
-		var name: String?
+		public var name: String?
 		/// Conversion factor to standart `SI` numbers
-		var multiplier: Double
+		public var multiplier: Double
+		
 		
 		// MARK: Dimension
 		/// Dimension of the SI unit
-		var dimension: [Base: Int]
+		public var dimension: [Base: Int]
 		
 		/// Basic Physical Dimension of `SI.Unit`
-		struct Base: Equatable, Hashable{
-			var name: String
+		public struct Base: Equatable, Hashable{
+			public var name: String
 		}
 		
-		// MARK: Inits
 		
+		// MARK: Inits
 		/**
 		 Creates a new `Unit`
 		 
@@ -51,7 +52,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 - Precondition: `multiplier != 0`
 		 - Returns: The specified `Unit`.
 		 */
-		init(_ name: String?, _ multiplier: Double, _ dimension: [Base: Int]) {
+		public init(_ name: String?, _ multiplier: Double, _ dimension: [Base: Int]) {
 			precondition(multiplier != 0)
 			self.name = name
 			self.multiplier = multiplier
@@ -67,7 +68,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 - Precondition: `multiplier != 0`
 		 - Returns: The specified `Unit`.
 		 */
-		init(_ name: String?, _ unit: Unit) {
+		public init(_ name: String?, _ unit: Unit) {
 			self.name = name
 			self.multiplier = unit.multiplier
 			self.dimension = unit.dimension
@@ -80,7 +81,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 - Parameter dimension: Dimesion of the unit
 		 - Returns: The specified `Unit`.
 		 */
-		init(multiplier: Double, dimension: [Base: Int]) {
+		public init(multiplier: Double, dimension: [Base: Int]) {
 			self.init(nil, multiplier, dimension)
 		}
 		
@@ -93,7 +94,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 - Parameter rhs: Rhight hand argument
 		 - Returns: `True` if  `lhs` is equal to `rhs`. Otherwise `False`
 		 */
-		static func == (lhs: Self, rhs: Self) -> Bool {
+		public static func == (lhs: Self, rhs: Self) -> Bool {
 			return lhs.multiplier == rhs.multiplier && lhs.dimension == rhs.dimension
 		}
 	}
@@ -106,7 +107,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 	 - Parameter unit: Unit of the number
 	 - Returns: An `SI` number with specified value and unit.
 	 */
-	init(_ value: Double, _ unit: Unit) {
+	public init(_ value: Double, _ unit: Unit) {
 		self.value = value
 		self.unit = unit
 	}
@@ -117,7 +118,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 	 - Parameter value: Numerical value of the number
 	 - Returns: An `SI` scalar with specified value.
 	 */
-	init(_ value: Double) {
+	public init(_ value: Double) {
 		self.init(value, Unit("", 1, [:]))
 	}
 	

@@ -21,7 +21,7 @@ extension Double{
 	 let result = force / area // = 1.503[.MPa]
 	 ```
 	 */
-	subscript(unit: SI.Unit) -> SI{
+	public subscript(unit: SI.Unit) -> SI{
 		SI(self, unit)
 	}
 	/**
@@ -32,7 +32,7 @@ extension Double{
 	 let poissonNumber = 0.3[] // = SI(0.3, Unit.scalar)
 	 ```
 	 */
-	subscript() -> SI{
+	public subscript() -> SI{
 		SI(self)
 	}
 }
@@ -45,7 +45,7 @@ extension Double{
  - Precondition:`value` has a dimension that supports a square root and positive magnetude.
  - Returns: Scientifically correct root of `value`
  */
-func sqrt(_ value: SI) -> SI {
+public func sqrt(_ value: SI) -> SI {
 	let dim = value.unit.dimension
 	precondition(value.value >= 0, "Cannot compute sqrt: Value is negative.")
 	precondition(0 == dim.reduce(0){$0 + $1.value % 2}, "Cannot compute sqrt: Unit is no square.")

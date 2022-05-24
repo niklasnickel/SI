@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: Operations
 extension SI.Unit.Base{
-	static let length = Self(name: "L")
-	static let weight = Self(name: "W")
-	static let time = Self(name: "T")
+	public static let length = Self(name: "L")
+	public static let weight = Self(name: "W")
+	public static let time = Self(name: "T")
 }

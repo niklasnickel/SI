@@ -11,47 +11,47 @@ import Foundation
 //MARK: Presets
 extension SI.Unit{
 	// Scalar
-	static let scalar = Self("", 1, [:])
-	static let percentage = Self("%", 0.01 * scalar)
+	public static let scalar = Self("", 1, [:])
+	public static let percentage = Self("%", 0.01 * scalar)
 	
 	// Length
-	static let m = Self("m", 1, [Base.length: 1])
-	static let mm = Self("mm", 1e-3 * m)
+	public static let m = Self("m", 1, [Base.length: 1])
+	public static let mm = Self("mm", 1e-3 * m)
 	
 	// Weight
-	static let kg = Self("kg", 1, [Base.weight: 1])
+	public static let kg = Self("kg", 1, [Base.weight: 1])
 	
 	// Time
-	static let s = Self("s", 1, [Base.time: 1])
-	static let min = Self("min", 60 * s)
-	static let h = Self("h", 60 * min)
+	public static let s = Self("s", 1, [Base.time: 1])
+	public static let min = Self("min", 60 * s)
+	public static let h = Self("h", 60 * min)
 	
 	// Frequency
-	static let Hz = Self("Hz", scalar / s)
+	public static let Hz = Self("Hz", scalar / s)
 	
 	// Velocity
-	static let m_s = Self("m/s", m / s)
+	public static let m_s = Self("m/s", m / s)
 	
 	// Area
-	static let m2 = Self("m^2", m ^ 2)
+	public static let m2 = Self("m^2", m ^ 2)
 	
 	// Force
-	static let N = Self("N", kg * m / (s ^ 2))
-	static let kN = Self("kN", 1e3 * N)
+	public static let N = Self("N", kg * m / (s ^ 2))
+	public static let kN = Self("kN", 1e3 * N)
 	
 	// Presure
-	static let Pa = Self("Pa", N / m2)
-	static let MPa = Self("MPa", 1e6 * Pa)
+	public static let Pa = Self("Pa", N / m2)
+	public static let MPa = Self("MPa", 1e6 * Pa)
 	
 	// Spring Constant
-	static let N_m = Self("N/m", N / m)
-	static let N_mm = Self("N/mm", N / mm)
+	public static let N_m = Self("N/m", N / m)
+	public static let N_mm = Self("N/mm", N / mm)
 }
 
 
 // MARK: String representation
 extension SI.Unit{
-	var debugDescription: String{
+	public var debugDescription: String{
 		if let name = name { return name }
 		else{
 			var dimensionString = " "
@@ -69,18 +69,18 @@ extension SI.Unit{
 //MARK: Operations
 extension SI.Unit{
 	
-	static func * (lhs: Self, rhs: Self) -> Self {
+	public static func * (lhs: Self, rhs: Self) -> Self {
 		let multiplier = lhs.multiplier * rhs.multiplier
 		let dimension = lhs.combineDimension(with: rhs, using: +)
 		return SI.Unit(multiplier: multiplier, dimension: dimension)
 	}
 	
-	static func * (lhs: Double, rhs: Self) -> Self {
+	public static func * (lhs: Double, rhs: Self) -> Self {
 		let multiplier = lhs * rhs.multiplier
 		return SI.Unit(multiplier: multiplier, dimension: rhs.dimension)
 	}
 	
-	static func ^ (lhs: Self, rhs: Int) -> Self {
+	public static func ^ (lhs: Self, rhs: Int) -> Self {
 		var dimension = lhs.dimension
 		for _ in 1...rhs-1 {
 			dimension = dimension.merging(dimension, uniquingKeysWith: +)
@@ -88,7 +88,7 @@ extension SI.Unit{
 		return SI.Unit(multiplier: pow(lhs.multiplier, Double(rhs)), dimension: dimension)
 	}
 	
-	static func / (lhs: Self, rhs: Self) -> Self {
+	public static func / (lhs: Self, rhs: Self) -> Self {
 		let multiplier = lhs.multiplier / rhs.multiplier
 		let dimension = lhs.combineDimension(with: rhs, using: -)
 		return SI.Unit(multiplier: multiplier, dimension: dimension)
