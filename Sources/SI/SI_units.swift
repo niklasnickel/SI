@@ -71,7 +71,7 @@ extension SI.Unit{
 	
 	static func * (lhs: Self, rhs: Self) -> Self {
 		let multiplier = lhs.multiplier * rhs.multiplier
-		let dimension = lhs.dimension.merging(rhs.dimension, uniquingKeysWith: +)
+		let dimension = lhs.combineDimension(with: rhs, using: +)
 		return SI.Unit(multiplier: multiplier, dimension: dimension)
 	}
 	
@@ -90,7 +90,15 @@ extension SI.Unit{
 	
 	static func / (lhs: Self, rhs: Self) -> Self {
 		let multiplier = lhs.multiplier / rhs.multiplier
-		let dimension = lhs.dimension.merging(rhs.dimension, uniquingKeysWith: -)
+		let dimension = lhs.combineDimension(with: rhs, using: -)
 		return SI.Unit(multiplier: multiplier, dimension: dimension)
+	}
+}
+
+// MARK: Dimension
+extension SI.Unit{
+	func combineDimension(with other: SI.Unit, using method: (Int, Int) -> Int) -> [Base: Int]{
+		let output = self.dimension.merging(other.dimension, uniquingKeysWith: method)
+		return output.filter {$0.value != 0}
 	}
 }
