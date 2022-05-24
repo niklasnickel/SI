@@ -11,10 +11,13 @@ let package = Package(
 			name: "SI",
 			targets: ["SI"]),
 	],
+	
 	targets: [
 		.target(
 			name: "SI",
-			dependencies: []),
+			dependencies: [],
+			exclude: ["Tests"]),
+		
 		.testTarget(
 			name: "SITests",
 			dependencies: ["SI"]),
