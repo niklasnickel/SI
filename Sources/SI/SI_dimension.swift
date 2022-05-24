@@ -8,7 +8,6 @@
 import Foundation
 
 
-// MARK: Operations
 extension SI.Unit.Base{
 	/// Length with standard unit Meter (m)
 	public static let length = Self(name: "m")
@@ -18,4 +17,16 @@ extension SI.Unit.Base{
 	
 	/// Seconds with standard unit Seconds (s)
 	public static let time = Self(name: "s")
+	
+	/// Current with standard unit Ampere (A)
+	public static let current = Self(name: "A")
+	
+	/// Temperature with standard unit Kelvin (K)
+	public static let temperature = Self(name: "K")
+	
+	/// Amount of substance with standard unit Mole (mol)
+	public static let substance_smmount = Self(name: "mol")
+	
+	/// Luminous intensity with standard unit Candela (cd)
+	public static let luminosity = Self(name: "cd")
 }
