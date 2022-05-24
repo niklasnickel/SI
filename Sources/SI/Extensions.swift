@@ -12,7 +12,7 @@ import Foundation
  */
 extension Double{
 	/**
-	 Creates an `SI` from a `Double` using subsripts
+	 Creates an `SI` from a `Double` using subscripts
 	 
 	 Usage:
 	 ```
@@ -25,7 +25,7 @@ extension Double{
 		SI(self, unit)
 	}
 	/**
-	 Creates an `SI` scalar from a `Double` using an empty subsripts
+	 Creates an `SI` scalar from a `Double` using an empty subscripts
 	 
 	 Usage:
 	 ```
@@ -42,7 +42,7 @@ extension Double{
  Takes the square root of an `SI` value.
  
  - Parameter value: Value to take the root of.
- - Precondition:`value` has a dimension that supports a square root and positive magnetude.
+ - Precondition:`value` has a dimension that supports a square root and positive magnitude.
  - Returns: Scientifically correct root of `value`
  */
 public func sqrt(_ value: SI) -> SI {

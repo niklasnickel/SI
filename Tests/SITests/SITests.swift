@@ -2,17 +2,17 @@ import XCTest
 @testable import SI
 
 final class SITests: XCTestCase {
-	// SI Handeling
-	func testSIhandeling() throws {
+	// SI Handling
+	func testSIHandling() throws {
 		let meters = 1.5[.m]
 		let millimeters = 400[.mm]
 		let seconds = 10[.s]
-		let squaremeters = 25[.m2]
+		let squareMeters = 25[.m2]
 		
 		XCTAssertEqual(meters / seconds, 0.15[.m_s])
 		XCTAssertEqual(meters / seconds + meters / seconds, 0.3[.m_s])
 		XCTAssertEqual(meters + millimeters, 1.9[.m])
-		XCTAssertEqual(squaremeters + meters * meters, 27.25[.m2])
+		XCTAssertEqual(squareMeters + meters * meters, 27.25[.m2])
 		XCTAssertEqual(meters ** 2, 2.25[.m2])
 		XCTAssertEqual(meters * meters, 2.25[.m2])
 		//        try XCTAssertThrowsError(meters.convert(to: Unit("")))
@@ -103,7 +103,7 @@ final class SITests: XCTestCase {
 		let l2 = 2[.mm]
 		let a1 = 4[.m2]
 		
-		// Potentiation
+		// Exponentiation
 		XCTAssertEqual(l1 ** 1, l1)
 		XCTAssertEqual(l1 ** 2, l1 * l1)
 		XCTAssertEqual(l2 ** 2, l2 * l2)

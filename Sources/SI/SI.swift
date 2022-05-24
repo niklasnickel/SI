@@ -28,7 +28,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		
 		/// Trivial name of the unit
 		public var name: String?
-		/// Conversion factor to standart `SI` numbers
+		/// Conversion factor to standard `SI` numbers
 		public var multiplier: Double
 		
 		
@@ -47,8 +47,8 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 Creates a new `Unit`
 		 
 		 - Parameter name: Trivial name of the unit
-		 - Parameter multiplier: Factor for conversion to standart SI-numbers
-		 - Parameter dimension: Dimesion of the unit
+		 - Parameter multiplier: Factor for conversion to standard SI-numbers
+		 - Parameter dimension: Dimension of the unit
 		 - Precondition: `multiplier != 0`
 		 - Returns: The specified `Unit`.
 		 */
@@ -76,8 +76,8 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		/**
 		 Creates a new `Unit` with `name = nil`
 		 
-		 - Parameter multiplier: Factor for conversion to standart SI-numbers
-		 - Parameter dimension: Dimesion of the unit
+		 - Parameter multiplier: Factor for conversion to standard SI-numbers
+		 - Parameter dimension: Dimension of the unit
 		 - Returns: The specified `Unit`.
 		 */
 		public init(multiplier: Double, dimension: [Base: Int]) {
@@ -87,10 +87,10 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		// MARK: Equality
 		
 		/**
-		 Determines wether the two units are equal.
+		 Determines whether the two units are equal.
 		 
 		 - Parameter lhs: Left hand argument
-		 - Parameter rhs: Rhight hand argument
+		 - Parameter rhs: Right hand argument
 		 - Returns: `True` if  `lhs` is equal to `rhs`. Otherwise `False`
 		 */
 		public static func == (lhs: Self, rhs: Self) -> Bool {

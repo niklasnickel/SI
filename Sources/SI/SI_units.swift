@@ -55,7 +55,7 @@ extension SI.Unit{
 
 // MARK: Dimension
 extension SI.Unit{
-	/// Adds a Dimention to another dimension
+	/// Adds a Dimension to another dimension
 	///
 	/// Example: `Unit.m.addDimension(to: Unit.m) = ["m" : 2]`
 	internal func addDimension(to other: SI.Unit) -> [Base : Int] {
@@ -63,7 +63,7 @@ extension SI.Unit{
 		return output.filter {$0.value != 0}
 	}
 	
-	/// Subtracts a Dimention from another dimension
+	/// Subtracts a Dimension from another dimension
 	///
 	/// Example: `Unit.m.subtractDimension(to: Unit.s) = ["m" : 1, "s" : -1]`
 	internal func subtractDimension(from other: SI.Unit) -> [Base: Int]{

@@ -11,10 +11,10 @@ extension SI {
 	
 	// MARK: Equality
 	/**
-	 Determines wether `lhs` is approximately equal to `rhs` with a precision of `precision`
+	 Determines whether `lhs` is approximately equal to `rhs` with a precision of `precision`
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: `True` if  `lhs` is  equal to `rhs`. Otherwise `False`
 	 */
 	public static func == (lhs: Self, rhs: Self) -> Bool{
@@ -28,7 +28,7 @@ extension SI {
 	}
 	
 	/**
-	 Determines wether `lhs` is approximately equal to `rhs` with a precision of `precision`
+	 Determines whether `lhs` is approximately equal to `rhs` with a precision of `precision`
 	 
 	 - Parameter comparator: Value to compare to
 	 - Parameter precision: Precision (Default: 1e-9)
@@ -48,10 +48,10 @@ extension SI {
 	//  MARK: Inequality
 	
 	/**
-	 Determines wether `lhs` is  less than `rhs`
+	 Determines whether `lhs` is  less than `rhs`
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: `True` if  `lhs` is scientifically less than `rhs`. Otherwise `False`
 	 */
 	public static func < (lhs: SI, rhs: SI) -> Bool {
@@ -60,10 +60,10 @@ extension SI {
 	}
 	
 	/**
-	 Determines wether `lhs` is  greater than `rhs`
+	 Determines whether `lhs` is  greater than `rhs`
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: `True` if  `lhs` is scientifically greater than `rhs`. Otherwise `False`
 	 */
 	public static func > (lhs: SI, rhs: SI) -> Bool {
@@ -76,7 +76,7 @@ extension SI {
 	 Multiplies two `SI` values.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct product of `lhs` and `rhs`.
 	 */
 	public static func * (lhs: Self, rhs: Self) -> Self{
@@ -88,7 +88,7 @@ extension SI {
 	 Multiplies a scalar `Double`with an `SI` value.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct product of `lhs` and `rhs`.
 	 */
 	public static func * (lhs: Double, rhs: Self) -> Self{
@@ -99,7 +99,7 @@ extension SI {
 	 Multiplies an `SI` value with a scalar `Double`.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct product of `lhs` and `rhs`.
 	 */
 	public static func * (lhs: Self, rhs: Double) -> Self{
@@ -111,7 +111,7 @@ extension SI {
 	 Divides two `SI` values.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct fraction of `lhs` and `rhs`.
 	 */
 	public static func / (lhs: Self, rhs: Self) -> Self{
@@ -123,7 +123,7 @@ extension SI {
 	 Divides a scalar `Double` by an `SI` value.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct fraction of `lhs` and `rhs`.
 	 */
 	public static func / (lhs: Double, rhs: Self) -> Self{
@@ -135,7 +135,7 @@ extension SI {
 	 Divides an `SI` value by a scalar `Double`.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Scientifically correct fraction of `lhs` and `rhs`.
 	 */
 	public static func / (lhs: Self, rhs: Double) -> Self{
@@ -148,8 +148,8 @@ extension SI {
 	 Adds two `SI` values if they share the same dimension.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
-	 - Precondition: Dimension of `rhs` and dimesion of `lhs` are equal
+	 - Parameter rhs: Right hand argument
+	 - Precondition: Dimension of `rhs` and dimension of `lhs` are equal
 	 - Returns: Scientifically correct sum of `lhs` and `rhs`.
 	 */
 	public static func + (lhs: Self, rhs: Self) -> Self {
@@ -162,7 +162,7 @@ extension SI {
 	 Adds a `Double` to an `SI` value.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Sum of `lhs` and `rhs` as an `SI`number.
 	 */
 	public static func + (lhs: Double, rhs: Self) -> SI {
@@ -172,7 +172,7 @@ extension SI {
 	 Adds an `SI` value to a `Double`.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Sum of `lhs` and `rhs` as an `SI`number.
 	 */
 	public static func + (lhs: Self, rhs: Double) -> SI {
@@ -184,8 +184,8 @@ extension SI {
 	 Subtracts two `SI` values if they share the same dimension.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
-	 - Precondition: Dimension of `rhs` and dimesion of `lhs` are equal
+	 - Parameter rhs: Right hand argument
+	 - Precondition: Dimension of `rhs` and dimension of `lhs` are equal
 	 - Returns: Scientifically correct difference of `lhs` and `rhs`.
 	 */
 	public static func - (lhs: Self, rhs: Self) -> Self {
@@ -198,7 +198,7 @@ extension SI {
 	 Subtracts a `Double` from an `SI` value.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Difference of `lhs` and `rhs` as an `SI`number.
 	 */
 	public static func - (lhs: Double, rhs: Self) -> Self {
@@ -208,7 +208,7 @@ extension SI {
 	 Subtracts an `SI` value from a `Double`.
 	 
 	 - Parameter lhs: Left hand argument
-	 - Parameter rhs: Rhight hand argument
+	 - Parameter rhs: Right hand argument
 	 - Returns: Difference of `lhs` and `rhs` as an `SI`number.
 	 */
 	public static func - (lhs: Self, rhs: Double) -> Self {
@@ -231,7 +231,7 @@ extension SI {
 	 
 	 - Parameter lhs: Base
 	 - Parameter rhs: Exponent
-	 - Returns: Scientifically correct potentation of `lhs` to the power of `rhs`.
+	 - Returns: Scientifically correct exponentiation of `lhs` to the power of `rhs`.
 	 */
 	public static func ** (lhs: Self, rhs: Int) -> Self{
 		var returnValue = lhs
@@ -252,9 +252,9 @@ extension SI {
 	
 	// MARK: Methods
 	/**
-	 Converts `SI` value to standart SI-units.
+	 Converts `SI` value to standard SI-units.
 	 
-	 - Returns: `self` converted to standart SI-units so that `self.unit.mulipiler == 1`
+	 - Returns: `self` converted to standard SI-units so that `self.unit.multiplier == 1`
 	 */
 	public func convertToSI() -> Self{
 		let value = value * unit.multiplier
@@ -266,8 +266,8 @@ extension SI {
 	 Converts `SI` value to specified `unit`.
 	 
 	 - Parameter unit: Desired unit
-	 - Precondition: Desired dimension and dimesion of `self` are equal
-	 - Returns: `self` converted to standart unit
+	 - Precondition: Desired dimension and dimension of `self` are equal
+	 - Returns: `self` converted to standard unit
 	 */
 	public func convert(to unit: Unit) -> Self {
 		precondition(unit.dimension == self.unit.dimension, "\(unit.dimension) is not equal to \(self.unit.dimension)")
@@ -276,9 +276,9 @@ extension SI {
 	}
 }
 
-// MARK: Prescedence of potentiation
-precedencegroup ExpoentiationPrescedence {
+// MARK: Precedence of Exponentiation
+precedencegroup ExponentiationPrecedence {
 	 associativity: left
 	 higherThan: MultiplicationPrecedence
 }
-infix operator ** : ExpoentiationPrescedence
+infix operator ** : ExponentiationPrecedence

@@ -25,7 +25,7 @@ extension SI.Unit.Base{
 	public static let temperature = Self(name: "K")
 	
 	/// Amount of substance with standard unit Mole (mol)
-	public static let substance_smmount = Self(name: "mol")
+	public static let substance_amount = Self(name: "mol")
 	
 	/// Luminous intensity with standard unit Candela (cd)
 	public static let luminosity = Self(name: "cd")
@@ -50,7 +50,7 @@ extension SI.Unit{
 	/// Meter (Standard unit for ``Base.length``
 	public static let m = Self("m", 1, [Base.length: 1])
 	
-	/// Milimeter 1mm = 0.001 ``m``
+	/// Millimetre 1mm = 0.001 ``m``
 	public static let mm = Self("mm", 1e-3 * m)
 }
 
@@ -102,7 +102,7 @@ extension SI.Unit{
 	public static let N = Self("N", kg * m / (s ** 2))
 	public static let kN = Self("kN", 1e3 * N)
 	
-	// Presure
+	// Pressure
 	public static let Pa = Self("Pa", N / m2)
 	public static let MPa = Self("MPa", 1e6 * Pa)
 	
