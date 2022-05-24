@@ -17,7 +17,7 @@ extension SI {
 	 - Parameter rhs: Rhight hand argument
 	 - Returns: `True` if  `lhs` is  equal to `rhs`. Otherwise `False`
 	 */
-	static func == (lhs: Self, rhs: Self) -> Bool{
+	public static func == (lhs: Self, rhs: Self) -> Bool{
 		precondition(lhs.unit.dimension == rhs.unit.dimension, "Cannot evaluate equality: Units don't match.")
 		if rhs.unit == lhs.unit{ // No unit conversion necessary
 			return lhs.value == rhs.value
@@ -54,7 +54,7 @@ extension SI {
 	 - Parameter rhs: Rhight hand argument
 	 - Returns: `True` if  `lhs` is scientifically less than `rhs`. Otherwise `False`
 	 */
-	static func < (lhs: SI, rhs: SI) -> Bool {
+	public static func < (lhs: SI, rhs: SI) -> Bool {
 		precondition(lhs.unit.dimension == rhs.unit.dimension, "Cannot evaluate inequality: Units don't match.")
 		return lhs.convertToSI().value < rhs.convertToSI().value
 	}
@@ -66,7 +66,7 @@ extension SI {
 	 - Parameter rhs: Rhight hand argument
 	 - Returns: `True` if  `lhs` is scientifically greater than `rhs`. Otherwise `False`
 	 */
-	static func > (lhs: SI, rhs: SI) -> Bool {
+	public static func > (lhs: SI, rhs: SI) -> Bool {
 		precondition(lhs.unit.dimension == rhs.unit.dimension,  "Cannot evaluate inequality: Units don't match.")
 		return lhs.convertToSI().value > rhs.convertToSI().value
 	}

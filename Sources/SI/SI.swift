@@ -9,10 +9,10 @@
 import Foundation
 
 /// Datatype that supports calculation with dimensional SI-units
-struct SI: Comparable, CustomDebugStringConvertible, Hashable {
+public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 	
 	/// String representation of the number
-	var debugDescription: String{
+	public var debugDescription: String{
 		"\(value) \(unit.debugDescription)"
 	}
 	
