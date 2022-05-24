@@ -35,12 +35,12 @@ extension SI {
 	 - Returns: `True` if  `lhs` is approximately equal to `rhs` with a precision of `precision`. Otherwise `False`
 	 */
 	public func isApprox (_ comparator: Self, precision: Double = 1e-9) -> Bool{
-		precondition(comparator.unit.dimension == self.unit.dimension,  "Cannot evaluate approximate equality: Units don't match.")
-		if self.unit == comparator.unit{ // No unit conversion necessary
-			return fabs(self.value.distance(to: comparator.value)) <= precision
+		precondition(comparator.unit.dimension == unit.dimension,  "Cannot evaluate approximate equality: Units don't match.")
+		if unit == comparator.unit{ // No unit conversion necessary
+			return fabs(value.distance(to: comparator.value)) <= precision
 		}
 		else{ // Unit conversion necessary
-			return fabs(self.convertToSI().value.distance(to: comparator.convertToSI().value)) <= precision
+			return fabs(convertToSI().value.distance(to: comparator.convertToSI().value)) <= precision
 		}
 	}
 	
@@ -103,7 +103,7 @@ extension SI {
 	 - Returns: Scientifically correct product of `lhs` and `rhs`.
 	 */
 	public static func * (lhs: Self, rhs: Double) -> Self{
-		return rhs * lhs
+		rhs * lhs
 	}
 	
 	//MARK: Division
@@ -166,7 +166,7 @@ extension SI {
 	 - Returns: Sum of `lhs` and `rhs` as an `SI`number.
 	 */
 	public static func + (lhs: Double, rhs: Self) -> SI {
-		return SI(lhs) + rhs
+		SI(lhs) + rhs
 	}
 	/**
 	 Adds an `SI` value to a `Double`.
@@ -176,7 +176,7 @@ extension SI {
 	 - Returns: Sum of `lhs` and `rhs` as an `SI`number.
 	 */
 	public static func + (lhs: Self, rhs: Double) -> SI {
-		return lhs + SI(rhs)
+		lhs + SI(rhs)
 	}
 	
 	//MARK: Subtraction
@@ -202,7 +202,7 @@ extension SI {
 	 - Returns: Difference of `lhs` and `rhs` as an `SI`number.
 	 */
 	public static func - (lhs: Double, rhs: Self) -> Self {
-		return SI(lhs) - rhs
+		SI(lhs) - rhs
 	}
 	/**
 	 Subtracts an `SI` value from a `Double`.
@@ -212,7 +212,7 @@ extension SI {
 	 - Returns: Difference of `lhs` and `rhs` as an `SI`number.
 	 */
 	public static func - (lhs: Self, rhs: Double) -> Self {
-		return lhs - SI(rhs)
+		lhs - SI(rhs)
 	}
 	
 	// MARK: Other operators
@@ -223,7 +223,7 @@ extension SI {
 	 - Returns: Scientifically correct negation of `lhs`.
 	 */
 	public static prefix func - (lhs: Self) -> Self {
-		return SI(-lhs.value, Unit(multiplier: 1, dimension: lhs.unit.dimension))
+		SI(-lhs.value, Unit(multiplier: 1, dimension: lhs.unit.dimension))
 	}
 	
 	/**
@@ -257,8 +257,8 @@ extension SI {
 	 - Returns: `self` converted to standart SI-units so that `self.unit.mulipiler == 1`
 	 */
 	public func convertToSI() -> Self{
-		let value = self.value * self.unit.multiplier
-		let unit = Unit(multiplier: 1, dimension: self.unit.dimension)
+		let value = value * unit.multiplier
+		let unit = Unit(multiplier: 1, dimension: unit.dimension)
 		return SI(value, unit)
 	}
 	
@@ -271,7 +271,7 @@ extension SI {
 	 */
 	public func convert(to unit: Unit) -> Self {
 		precondition(unit.dimension == self.unit.dimension, "\(unit.dimension) is not equal to \(self.unit.dimension)")
-		let value = (self.value * self.unit.multiplier) / unit.multiplier
+		let value = (value * self.unit.multiplier) / unit.multiplier
 		return SI(value, unit)
 	}
 }

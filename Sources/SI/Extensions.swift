@@ -41,7 +41,7 @@ extension Double{
 /**
  Takes the square root of an `SI` value.
  
- - Parameter variable: Left hand argument
+ - Parameter value: Value to take the root of.
  - Precondition:`value` has a dimension that supports a square root and positive magnetude.
  - Returns: Scientifically correct root of `value`
  */

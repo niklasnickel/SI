@@ -59,7 +59,7 @@ extension SI.Unit{
 	///
 	/// Example: `Unit.m.addDimension(to: Unit.m) = ["m" : 2]`
 	internal func addDimension(to other: SI.Unit) -> [Base : Int] {
-		let output = self.dimension.merging(other.dimension, uniquingKeysWith: +)
+		let output = dimension.merging(other.dimension, uniquingKeysWith: +)
 		return output.filter {$0.value != 0}
 	}
 	
@@ -67,7 +67,7 @@ extension SI.Unit{
 	///
 	/// Example: `Unit.m.subtractDimension(to: Unit.s) = ["m" : 1, "s" : -1]`
 	internal func subtractDimension(from other: SI.Unit) -> [Base: Int]{
-		let output = self.dimension.mapValues(-).merging(other.dimension, uniquingKeysWith: +)
+		let output = dimension.mapValues(-).merging(other.dimension, uniquingKeysWith: +)
 		return output.filter {$0.value != 0}
 	}
 }
@@ -96,7 +96,7 @@ public let z = addPrefix("c", conversion: 1e-21)
 public let y = addPrefix("y", conversion: 1e-24)
 
 
-internal func addPrefix(_ prefix: String, conversion: Double) -> ((SI.Unit) -> SI.Unit){
+internal func addPrefix(_ prefix: String, conversion: Double) -> (SI.Unit) -> SI.Unit {
 	func out(_ unit: SI.Unit) -> SI.Unit{
 		var name: String? = nil
 		if let name_orig = unit.name {name = prefix + name_orig}

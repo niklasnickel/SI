@@ -63,15 +63,14 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 Creates a new `Unit` from an existing `Unit`
 		 
 		 - Parameter name: Trivial name of the unit
-		 - Parameter multiplier: Factor for conversion to standart SI-numbers
-		 - Parameter dimension: Dimesion of the unit
+		 - Parameter unit: Unit to derive the new unit from
 		 - Precondition: `multiplier != 0`
 		 - Returns: The specified `Unit`.
 		 */
 		public init(_ name: String?, _ unit: Unit) {
 			self.name = name
-			self.multiplier = unit.multiplier
-			self.dimension = unit.dimension
+			multiplier = unit.multiplier
+			dimension = unit.dimension
 		}
 		
 		/**
@@ -95,7 +94,7 @@ public struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 - Returns: `True` if  `lhs` is equal to `rhs`. Otherwise `False`
 		 */
 		public static func == (lhs: Self, rhs: Self) -> Bool {
-			return lhs.multiplier == rhs.multiplier && lhs.dimension == rhs.dimension
+			lhs.multiplier == rhs.multiplier && lhs.dimension == rhs.dimension
 		}
 	}
 	
