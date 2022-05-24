@@ -85,7 +85,7 @@ extension SI.Unit{
 		for _ in 1...rhs-1 {
 			dimension = dimension.merging(dimension, uniquingKeysWith: +)
 		}
-		return SI.Unit(multiplier: lhs.multiplier, dimension: dimension)
+		return SI.Unit(multiplier: pow(lhs.multiplier, Double(rhs)), dimension: dimension)
 	}
 	
 	static func / (lhs: Self, rhs: Self) -> Self {
