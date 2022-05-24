@@ -233,7 +233,7 @@ extension SI {
 	 - Parameter rhs: Exponent
 	 - Returns: Scientifically correct potentation of `lhs` to the power of `rhs`.
 	 */
-	public static func ^ (lhs: Self, rhs: Int) -> Self{
+	public static func ** (lhs: Self, rhs: Int) -> Self{
 		var returnValue = lhs
 		if rhs == 0{
 			return SI(1)
@@ -275,3 +275,10 @@ extension SI {
 		return SI(value, unit)
 	}
 }
+
+// Prescedence of potentiation
+precedencegroup ExpoentiationPrescedence {
+	 associativity: left
+	 higherThan: MultiplicationPrecedence
+}
+infix operator ** : ExpoentiationPrescedence

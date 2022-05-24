@@ -33,10 +33,10 @@ extension SI.Unit{
 	public static let m_s = Self("m/s", m / s)
 	
 	// Area
-	public static let m2 = Self("m^2", m ^ 2)
+	public static let m2 = Self("m²", m ** 2)
 	
 	// Force
-	public static let N = Self("N", kg * m / (s ^ 2))
+	public static let N = Self("N", kg * m / (s ** 2))
 	public static let kN = Self("kN", 1e3 * N)
 	
 	// Presure
