@@ -4,9 +4,9 @@
 /// At runtime while performing an XCTest, it will be changed to a different function in order to evaluate its output.
 /// Adapted from Nikolaj Schumacher (@nschum)
 
+#if DEBUG
 import XCTest
 
-#if DEBUG
 func precondition(_ condition: @autoclosure () -> Bool,  _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line) {
 	preconditionClosure(condition(), message(), file, line)
 }

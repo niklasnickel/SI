@@ -15,8 +15,7 @@ let package = Package(
 	targets: [
 		.target(
 			name: "SI",
-			dependencies: [],
-			exclude: ["Tests"]),
+			dependencies: []),
 		
 		.testTarget(
 			name: "SITests",
