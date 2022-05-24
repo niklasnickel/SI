@@ -1,4 +1,4 @@
-//
+`//
 //  File.swift
 //  
 //
@@ -81,7 +81,7 @@ extension SI {
 	 */
 	static func * (lhs: Self, rhs: Self) -> Self{
 		let value = lhs.convertToSI().value * rhs.convertToSI().value
-		let unit = Unit(multiplier: 1, dimension: lhs.unit.dimension + rhs.unit.dimension)
+		let unit = Unit(multiplier: 1, dimension: lhs.unit.dimension.merging(rhs.unit.dimension, uniquingKeysWith: +))
 		return SI(value, unit)
 	}
 	/**
@@ -116,7 +116,7 @@ extension SI {
 	 */
 	static func / (lhs: Self, rhs: Self) -> Self{
 		let value = lhs.convertToSI().value / rhs.convertToSI().value
-		let unit = Unit(multiplier: 1, dimension: lhs.unit.dimension - rhs.unit.dimension)
+		let unit = Unit(multiplier: 1, dimension: lhs.unit.dimension.merging(rhs.unit.dimension, uniquingKeysWith: -))
 		return SI(value, unit)
 	}
 	/**
@@ -128,7 +128,7 @@ extension SI {
 	 */
 	static func / (lhs: Double, rhs: Self) -> Self{
 		let value = lhs / rhs.value
-		let unit = Unit(multiplier: rhs.unit.multiplier, dimension: Unit.Dimension(m: 0, kg: 0, s: 0)-rhs.unit.dimension)
+		let unit = Unit(multiplier: rhs.unit.multiplier, dimension: [:].merging(rhs.unit.dimension, uniquingKeysWith: -))
 		return SI(value, unit)
 	}
 	/**

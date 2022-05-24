@@ -33,16 +33,11 @@ struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		
 		// MARK: Dimension
 		/// Dimension of the SI unit
-		var dimension: Dimension
+		var dimension: [Base: Int]
 		
-		/// Physical Dimension of `SI.Unit`
-		struct Dimension: Equatable, Hashable{
-			/// Power of meters
-			var m: Int
-			/// Power of kilograms
-			var kg: Int
-			/// Power of seconds
-			var s: Int
+		/// Basic Physical Dimension of `SI.Unit`
+		struct Base: Equatable, Hashable{
+			var name: String
 		}
 		
 		// MARK: Inits
@@ -56,7 +51,7 @@ struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 - Precondition: `multiplier != 0`
 		 - Returns: The specified `Unit`.
 		 */
-		init(_ name: String?, _ multiplier: Double, _ dimension: Dimension) {
+		init(_ name: String?, _ multiplier: Double, _ dimension: [Base: Int]) {
 			precondition(multiplier != 0)
 			self.name = name
 			self.multiplier = multiplier
@@ -85,7 +80,7 @@ struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 		 - Parameter dimension: Dimesion of the unit
 		 - Returns: The specified `Unit`.
 		 */
-		init(multiplier: Double, dimension: Dimension) {
+		init(multiplier: Double, dimension: [Base: Int]) {
 			self.init(nil, multiplier, dimension)
 		}
 		
@@ -123,7 +118,7 @@ struct SI: Comparable, CustomDebugStringConvertible, Hashable {
 	 - Returns: An `SI` scalar with specified value.
 	 */
 	init(_ value: Double) {
-		self.init(value, Unit("", 1, Unit.Dimension.scalar))
+		self.init(value, Unit("", 1, [:]))
 	}
 	
 }

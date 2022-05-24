@@ -11,18 +11,18 @@ import Foundation
 //MARK: Presets
 extension SI.Unit{
 	// Scalar
-	static let scalar = Self("", 1, .scalar)
+	static let scalar = Self("", 1, [:])
 	static let percentage = Self("%", 0.01 * scalar)
 	
 	// Length
-	static let m = Self("m", 1, .length)
+	static let m = Self("m", 1, [Base.length: 1])
 	static let mm = Self("mm", 1e-3 * m)
 	
 	// Weight
-	static let kg = Self("kg", 1, .weight)
+	static let kg = Self("kg", 1, [Base.weight: 1])
 	
 	// Time
-	static let s = Self("s", 1, .time)
+	static let s = Self("s", 1, [Base.time: 1])
 	static let min = Self("min", 60 * s)
 	static let h = Self("h", 60 * min)
 	
@@ -58,16 +58,9 @@ extension SI.Unit{
 			if multiplier != 1{
 				dimensionString +=  "x \(multiplier) "
 			}
-			if dimension.kg != 0{
-				dimensionString += "kg^\(dimension.kg)"
+			return dimension.reduce(into: dimensionString) {
+				$0 += $1.key.name
 			}
-			if dimension.m != 0{
-				dimensionString += "m^\(dimension.m)"
-			}
-			if dimension.s != 0{
-				dimensionString += "s^\(dimension.s)"
-			}
-			return dimensionString
 		}
 	}
 }
@@ -78,7 +71,7 @@ extension SI.Unit{
 	
 	static func * (lhs: Self, rhs: Self) -> Self {
 		let multiplier = lhs.multiplier * rhs.multiplier
-		let dimension = lhs.dimension + rhs.dimension
+		let dimension = lhs.dimension.merging(rhs.dimension, uniquingKeysWith: +)
 		return SI.Unit(multiplier: multiplier, dimension: dimension)
 	}
 	
@@ -90,14 +83,14 @@ extension SI.Unit{
 	static func ^ (lhs: Self, rhs: Int) -> Self {
 		var dimension = lhs.dimension
 		for _ in 1...rhs-1 {
-			dimension = dimension + dimension
+			dimension = dimension.merging(dimension, uniquingKeysWith: +)
 		}
 		return SI.Unit(multiplier: lhs.multiplier, dimension: dimension)
 	}
 	
 	static func / (lhs: Self, rhs: Self) -> Self {
 		let multiplier = lhs.multiplier / rhs.multiplier
-		let dimension = lhs.dimension - rhs.dimension
+		let dimension = lhs.dimension.merging(rhs.dimension, uniquingKeysWith: -)
 		return SI.Unit(multiplier: multiplier, dimension: dimension)
 	}
 }

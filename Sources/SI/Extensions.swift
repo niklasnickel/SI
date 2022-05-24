@@ -48,9 +48,9 @@ extension Double{
 func sqrt(_ value: SI) -> SI {
 	let dim = value.unit.dimension
 	precondition(value.value >= 0, "Cannot compute sqrt: Value is negative.")
-	precondition(dim.m % 2 == 0 && dim.kg % 2 == 0 && dim.s % 2 == 0, "Cannot compute sqrt: Unit is no square.")
+	precondition(0 == dim.reduce(0){$0 + $1.value % 2}, "Cannot compute sqrt: Unit is no square.")
 	
 	let newValue = value.value.squareRoot()
-	let newDimension = SI.Unit.Dimension(m: dim.m / 2, kg: dim.kg / 2, s: dim.s / 2)
+	let newDimension = dim.mapValues {$0 / 2}
 	return SI(newValue, SI.Unit(multiplier: value.unit.multiplier, dimension: newDimension))
 }
