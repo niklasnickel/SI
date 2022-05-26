@@ -127,3 +127,9 @@ extension SI.Unit {
 }
 ```
 
+
+## Contribution
+
+You have found a bug 🐞 or have a question 🤔? Just send me a message or create an issue, and I will try to get back to you as soon as possible. 
+
+You want to devellop this package further? Just create a merge request or send me a message. Please add exaustive test to your new functionallity in order to keep this package as stable and reliable as possible. Also, please make sure to document your code to make it legible for other devs. If you have any questions just write me. Thank you very much for your contribution! ✌️
