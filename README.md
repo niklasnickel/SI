@@ -27,7 +27,7 @@ print(preassure.convert(to: .Pa))
 
 ## Basic usage
 
-Every ``SI`` number is comprised of a ``value`` and a ``unit``. When performing arithmetic operations, the unit of a number is considered to ensure physical accuracy and proper conversion. Adding e.g. *1 m* to *500 mm* will return *1.5 m*, while an addition with *1 s* will result in an error since the physical dimentions of the units mismatch.
+Every ``SI`` number consists of a ``value`` and a ``unit``. When performing arithmetic operations, the unit of a number is considered to ensure physical accuracy and proper conversion. Adding e.g. *1 m* to *500 mm* will return *1.5 m*, while an addition with *1 s* will result in an error since the physical dimentions of the units mismatch.
 
 ### Construction
 
@@ -46,7 +46,7 @@ To constract an ``SI``number you have three options:
    let myScalar = 2.5[] // 2.5 (empty subscript for scalar value)
    ```
 
-### Calculation
+### Initialization
 
 You can use ``SI`` like a ``Double`` without the struggle of keepng track of unit conversions. Here are some examples
 
@@ -75,4 +75,55 @@ let myTime = 24[.hour].convert(to: .day) // 1.0 day
 ```
 
 
+## Custom Units
+
+If you find your unit missing in the library of ``SI.Unit``, you can easily create one.
+
+### Creating units on the fly
+
+``SI.Unit`` supports multiplication, devision and exponentiation so creating a new unit in place is really easy. 
+
+```swift
+let N = .kg * .m / .s ** 2 // Newton
+let lb = 0.45359237 * .kg // Pound
+```
+
+### Prefixes
+
+To add a prefix to a unit (eg. N → kN, m → μ), you can use the inbuilt methods.
+```swift
+let μm = μ(.m) // Micrometer: 1 μm = 10⁻⁶ m
+let kN = k(.N) // Kilonewton: 1 kN = 10³ N
+```
+
+### Define a named unit
+
+To define a named ``SI.Unit`` you must use the initializer. You can create a new ``SI.Unit`` based of an existing one or one created on the fly. The name is used in the ``customDebugString``.
+
+> **Tipp** Add your named units as an etension of ``SI.Unit`` to make them easily avialable.
+
+```swift
+extension SI.Unit {
+   public static let N = Self("N", kg * m / (s ** 2)) // Force in Newton
+}
+let Hz = SI.Unit("Hz", .scalar / .s) // Freqency in Hertz
+```
+
+### Unit dimension
+
+An ``SI.Unit`` consists of a ``dimension`` and a ``multiplicator``. The ``dimension`` is a dictionary of type ``[SI.Unit.Base : Int]`` where the key stands for the respective Base dimension and the value for its power. For example
+```swift
+SI.Unit("m/s", .m / .s).dimension = [SI.Unit.Base.m: 1, SI.Unit.Base.s: -1]
+```
+The ``multiplicator`` is used to convert the unit to the SI system.
+
+All standard base units are provided in the ``SI`` package. To define a new base unit (e.g. €, happieness,...) extend of ``SI.Unit.Base`` and use the default initializer and provide the standard symbol. Then define the standard unit of the new dimension providing the new ``dimension``, the ``multiplicator`` and a ``name``.
+```swift
+extension SI.Unit.Base{
+   public static let currency = Self(name: "€")
+}
+extension SI.Unit {
+   public static let euro = Self("€", 1, [Base.currency: 1])
+}
+```
 
