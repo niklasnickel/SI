@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: Constructors from a Double
 /**
  SI initialization as a `Double` extension
  */
@@ -38,6 +39,7 @@ extension Double {
 }
 
 
+// MARK: Functions
 /**
  Takes the square root of an `SI` value.
  

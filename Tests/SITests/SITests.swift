@@ -107,10 +107,12 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(l1 ** 1, l1)
 		XCTAssertEqual(l1 ** 2, l1 * l1)
 		XCTAssertEqual(l2 ** 2, l2 * l2)
+		XCTAssertEqual(pow(l2, 2), l2 * l2)
 		XCTAssertEqual(l2 ** 2, 4[.mm * .mm])
 		XCTAssertEqual(l1 ** 3, l1 * l1 * l1)
 		XCTAssertEqual(l1 ** 0, 1[])
 		XCTAssertEqual(l1 ** -1, 1 / l1)
+		XCTAssertEqual(pow(l1, -1), 1 / l1)
 		XCTAssertEqual(l1 ** -2, 1 / (l1 ** 2))
 		
 		// Square Root
