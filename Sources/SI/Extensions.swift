@@ -39,6 +39,29 @@ extension Double {
 }
 
 
+// MARK: Conversion to real numbers
+extension Double{
+	/**
+	 Creates a ``Double`` from an ``SI`` value.
+	 - Precondition: Dimension of unit is scalar (``[:]``)
+	*/
+	init(_ si: SI){
+		precondition(si.unit.dimension == [:], "Cannot convert SI to Double, since the dimension of its unit is not scalar.")
+		self.init(si.value * si.unit.multiplier)
+	}
+}
+
+extension Int{
+	/**
+	 Creates an ``Int`` from an ``SI`` value.
+	 - Precondition: Dimension of unit is scalar (``[:]``)
+	*/
+	init(_ si: SI){
+		precondition(si.unit.dimension == [:], "Cannot convert SI to Int, since the dimension of its unit is not scalar.")
+		self.init(si.value * si.unit.multiplier)
+	}
+}
+
 // MARK: Functions
 /**
  Takes the square root of an `SI` value.

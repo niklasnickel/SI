@@ -161,4 +161,22 @@ final class SITests: XCTestCase {
 		XCTAssertEqual(SI(2, µ(.m)), SI(2e-6, .m))
 		XCTAssertEqual(2000[m(.m)], 2[.m])
 	}
+	
+	func testRealNumberConversion() throws{
+		let l1 = 2[.m]
+		let l2 = 2[.mm]
+		
+		XCTAssertEqual(Int(2[]), 2)
+		XCTAssertEqual(Double(2.895e-83[]), 2.895e-83)
+		XCTAssertEqual(Double(l1/l1), 1)
+		XCTAssertEqual(Int(l2/l2), 1)
+		XCTAssertEqual(Double(l2/l1), 0.001)
+		
+		assertPreconditionFailure(expectedMessage: "Cannot convert SI to Int, since the dimension of its unit is not scalar.") {
+			let _ = Int(l1)
+		}
+		assertPreconditionFailure(expectedMessage: "Cannot convert SI to Double, since the dimension of its unit is not scalar.") {
+			let _ = Double(l1)
+		}
+	}
 }
