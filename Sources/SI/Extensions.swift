@@ -54,3 +54,10 @@ public func sqrt(_ value: SI) -> SI {
 	let newDimension = dim.mapValues { $0 / 2 }
 	return SI(newValue, SI.Unit(multiplier: value.unit.multiplier, dimension: newDimension))
 }
+
+/**
+Alias for SI potentiation
+ */
+public func pow(_ value: SI, _ exponent: Int) -> SI{
+	value ** exponent
+}
