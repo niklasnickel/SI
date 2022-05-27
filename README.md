@@ -1,27 +1,31 @@
 # Dimensional arithmetics in Swift
 
-This package provides an easy and natural way of dealing with physical sizes. Performing complex arithmetics or unit conversion is as easy as using ``Double`` values. Check out the code below, to get a glimpse on what is possible with this package.
+This package provides an easy and natural way of dealing with physical sizes. Performing complex arithmetics or unit conversion is as easy as using floating point values. Check out the code below, to get a glimpse on what is possible with this package.
 
 ```swift
-let area = 2.4[.m] * 5.86[.inch] // Area of a rectangle 2.4m x 5.86"
-let force = 52.36[.lb] * SI.g // Force exceeded by a mass of 52.36℔ under gravity
-let pressure = force / area // Calculate the pressure.
-print(pressure.convert(to: .Pa))
+let area = 2.4[.m] * 5.86[.inch] // Area of a rectangle 2.4 m x 5.86 ″
+let force = 52.36[.lb] * SI.g // Force exceeded by a mass of 52.36 ℔ under gravity
+
+let pressure = force / area // Calculate the pressure
+let min_boundary = 2 * sqrt(SI.π * area) // Calculate the minimal boundary of the area
+
+print(pressure.convert(to: .Pa)) // Prints "651.9938206417452 Pa"
+print(min_boundary.convert(to: .mm)) // Prints "2118.7329427128902 mm"
 ```
 
 > **TLDR**  
 > - Install this package like any other Swift package using the Swift package manager.
 > - Construct an ``SI`` number using ``SI(_ value: Double, _ unit: SI.Unit)`` or the subscript notation
 >   ```swift
->   let v1 = SI(2.5, .m / .s)
->   let v2 = 2.5[.m / .s]
+>   let a1 = SI(2.5, .m / .s ** 2) // Creates an SI number of 2.5 m/s²
+>   let a2 = 2.5[.m / .s ** 2] // Also 2.5 m/s² 
 >   ```
 > - Perform any calculations you would do with a double, ``SI`` will take care of the rest.
 > - To convert an ``SI`` number to a desired unit use ``convert(to: SI.Unit)``
 > - Define custom units by natural calculation e.g.
 >   ```swift
->   let N = .kg * .m / .s ** 2
->   let lb = SI.Unit("℔", 0.45359237 * kg) 
+>   let N = .kg * .m / .s ** 2 // Creates the unit N (1 N = 1 kg·m/s²)
+>   let lb = SI.Unit("℔", 0.45359237 * kg) // Creates the unit lb with the name "℔" and 1 ℔ = 0.45359237 kg
 >   ```
 > - You can use physical constants provided under ``SI``
 
