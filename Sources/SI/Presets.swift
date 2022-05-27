@@ -71,7 +71,7 @@ extension SI.Unit {
 	
 	/// International avoirdupois pound
 	/// - 1 ℔ = 0.45359237 ``kg``
-	public static let lb = Self("℔", 0.45359237 * kg)
+	public static let lb = Self("℔", 0.453_592_37 * kg)
 }
 
 
@@ -136,10 +136,20 @@ extension SI{
 	/// Normal gravitational constant
 	/// - g = 9.80665 m/s²
 	/// - Note: [Resolution 2 of the 3rd CGPM (1901)](https://www.bipm.org/en/committees/cg/cgpm/3-1901/resolution-2)
-	public static let g = Self(9.80665, .m / .s ** 2)
+	public static let g = Self(9.806_65, .m / .s ** 2)
+	
+	/// Pi
+	/// - π = 3.141_592_653_589_793_238_462_643_383_27
+	/// - Note: [PiDay](https://www.piday.org/million/)
+	public static let π = Self(3.141_592_653_589_793_238_462_643_383_279)
+	
+	/// Euler's number / Napier's constant
+	/// - e = 2.718_281_828_459_045_235_360_287_471_352
+	/// - Note: [NASA](https://apod.nasa.gov/htmltest/gifcity/e.2mil)
+	public static let e = Self(2.718_281_828_459_045_235_360_287_471_352)
 	
 	/// Universal gravitational constant
 	/// - G = 6.67430 x 10⁻¹¹ N m² kg⁻²
 	/// - Note: [NIST](https://physics.nist.gov/cgi-bin/cuu/Value?bg)
-	public static let G = Self(6.67430e-11, .N * .m2 / .kg ** 2)
+	public static let G = Self(6.674_30e-11, .N * .m2 / .kg ** 2)
 }
