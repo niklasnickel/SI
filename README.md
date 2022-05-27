@@ -61,6 +61,7 @@ l1 * l2 // 1m² (1[.m ** 2])
 l1 / l2 // 4 (4[])
 2 * l1 // 4m (4[.m])
 l1 ** 2 // 4m² (4[.m ** 2])
+pow(l1, 2) // 4m² (4[.m ** 2])
 sqrt(l1 * l2) // 1m (1[.m])
 ```
 
@@ -75,6 +76,16 @@ let myLength = 2.5[.inch].convertToSI() // 0.063 m
 let myTime = 24[.hour].convert(to: .day) // 1.0 day
 ```
 
+> **Caution** Be careful when converting an ``SI`` number to a unit with mismatching physical dimensions e.g. ``1[.m].convert(to: .s)`` since this will result in a precondition failure.
+
+To typecast an ``SI`` to an ``Int`` or ``Double`` just use the initializer.
+
+```swift
+let double = Double(2[.m] / 2[.mm]) // 1000.0
+let int = Double(2[.mm] / 2[.m]) // 1000
+```
+
+> **Caution** Be careful when typecasting an ``SI`` with a non-scalar physical dimensions e.g. ``Double(1.2[.m])`` since this will result in a precondition failure.
 
 ## Custom Units
 
