@@ -85,8 +85,8 @@ let myTime = 24[.hour].convert(to: .day) // 1.0 day
 To typecast an ``SI`` to an ``Int`` or ``Double`` just use the initializer.
 
 ```swift
-let double = Double(2[.m] / 2[.mm]) // 1000.0
-let int = Double(2[.mm] / 2[.m]) // 1000
+let myDouble = Double(2[.m] / 2[.mm]) // 1000.0
+let myInt = Int(2[.m] / 2[.mm]) // 1000
 ```
 
 > **Caution** Be careful when typecasting an ``SI`` with a non-scalar physical dimensions e.g. ``Double(1.2[.m])`` since this will result in a precondition failure.
